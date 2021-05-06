@@ -45,6 +45,46 @@ class Start:
         self.start_button = Button(self.start_buttons_frame, text="Start", font="Arial 10", pady=5, padx=10, bg="green")
         self.start_button.grid(row=0, column=1, padx=50)
 
+    # Question Amount Checking (inspired by "02_Start_GUI.py", specifically the segement titled "check_funds")
+    def check_question_amount(self):
+        
+        # Get initial data
+        question_amount = self.number_entry_box.get()
+
+        # Sets initial varables, including background colour and error checking
+        error_background="pink"
+        has_errors = "no"
+
+        # Change background colour to white for testing purposes
+        self.number_entry_box.config(bg="white")
+        self.number_entry_box.config(text="")
+
+        try:
+            question_amount = int(question_amount)
+
+            if starting_balance =< 0:
+                has_errors = "yes"
+                error_feedback = "Sorry, the lowest number of questions that you can be asked is 1."
+
+            elif starting_balance > 114:
+                has_errors = "yes"
+                error_feedback = "Sorry, the highest number of questions that you can be asked is 113."
+
+            else:
+                has_errors="no"
+            
+        except ValueError:
+            has_errors = "yes"
+            error_feedback = "Please enter a whole number between 1 and 113"
+
+        if has_errors == "yes":
+            self.start_amount_entry.config(bg=error_background)
+            self.amount_error_label.config(text=error_feedback)
+
+        else:
+            # Set starting balance to amount entered by user
+            self.starting_funds.set(starting_balance)
+
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":
     root = Tk()
