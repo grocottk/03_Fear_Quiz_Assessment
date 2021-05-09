@@ -52,7 +52,7 @@ class Start:
         question_amount = self.number_entry_box.get()
 
         # Sets initial varables, including background colour and error checking
-        error_background="pink"
+        error_background = "pink"
         has_errors = "no"
 
         # Change background colour to white for testing purposes
@@ -62,28 +62,43 @@ class Start:
         try:
             question_amount = int(question_amount)
 
-            if starting_balance =< 0:
+            # If the question amount is less than 1, give an error message
+            if question_amount < 1:
                 has_errors = "yes"
                 error_feedback = "Sorry, the lowest number of questions that you can be asked is 1."
 
-            elif starting_balance > 114:
+            # If the question amount is more than 113, give an error message
+            elif question_amount > 113:
                 has_errors = "yes"
                 error_feedback = "Sorry, the highest number of questions that you can be asked is 113."
 
             else:
-                has_errors="no"
+                has_errors = "no"
             
         except ValueError:
             has_errors = "yes"
             error_feedback = "Please enter a whole number between 1 and 113"
 
         if has_errors == "yes":
-            self.start_amount_entry.config(bg=error_background)
-            self.amount_error_label.config(text=error_feedback)
+            # If errors are present, change the error area
+            self.start_error_message_area.config(bg=error_background)
+            self.start_error_message_area.config(text=error_feedback)
 
         else:
-            # Set starting balance to amount entered by user
-            self.starting_funds.set(starting_balance)
+            # Set total questions to the question_amount variable
+            self.question_amount.set(total_questions)
+
+    # To Quiz function (inspired by "02_Start_GUI.py", specifically the "to_game" section)
+    def to_quiz(self, total_questions):
+
+        # Retrieve starting balance
+        total_questions = self.number_entry_box.get()
+        
+        # Takes variables to the quiz class
+        Quiz(self, total_questions)
+
+        # Hide start up window
+        root.withdraw()
 
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":
