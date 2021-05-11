@@ -8,7 +8,7 @@ from tkinter import *
 import random
 from functools import partial # This prevents unwanted windows from opening
 
-# Start Class (with various portions taken from "01_Mystery_Box_Outline.py")
+# Start Class (with various portions taken from "01_Mystery_Box_Outline.py" and also "02_Converter_GUI.py")
 class Start:
     def __init__(self, parent):
 
@@ -30,7 +30,7 @@ class Start:
         self.number_entry_box.grid(row=2)
 
         # Start Error Message Area (Row 3)
-        self.start_error_message_area = Label(self.start_frame, text="")
+        self.start_error_message_area = Label(self.start_frame, font="Arial 10")
         self.start_error_message_area.grid(row=3)
 
         # Start Buttons Frame (Row 4) [inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"]
@@ -42,10 +42,12 @@ class Start:
         self.help_button.grid(row=0, column=0, padx=50)
 
         # Start Button (Row 0, Column 1)
-        self.start_button = Button(self.start_buttons_frame, text="Start", font="Arial 10", pady=5, padx=10, bg="green")
+        self.start_button = Button(self.start_buttons_frame, text="Start", font="Arial 10", pady=5, padx=10, bg="green",
+                                command=self.check_question_amount)
         self.start_button.grid(row=0, column=1, padx=50)
 
-    # Question Amount Checking (inspired by "02_Start_GUI.py", specifically the segement titled "check_funds")
+    # Question Amount Checking (inspired by "02_Start_GUI.py", specifically the segement titled "check_funds",
+    # ... and "12g_Assembled_Program.py")
     def check_question_amount(self):
         
         # Get initial data
@@ -54,10 +56,6 @@ class Start:
         # Sets initial varables, including background colour and error checking
         error_background = "pink"
         has_errors = "no"
-
-        # Change background colour to white for testing purposes
-        self.number_entry_box.config(bg="white")
-        self.number_entry_box.config(text="")
 
         try:
             question_amount = int(question_amount)
@@ -71,9 +69,6 @@ class Start:
             elif question_amount > 113:
                 has_errors = "yes"
                 error_feedback = "Sorry, the highest number of questions that you can be asked is 113."
-
-            else:
-                has_errors = "no"
             
         except ValueError:
             has_errors = "yes"
@@ -86,16 +81,16 @@ class Start:
 
         else:
             # Set total questions to the question_amount variable
-            self.question_amount.set(total_questions)
+            self.question_number.set(question_amount)
 
     # To Quiz function (inspired by "02_Start_GUI.py", specifically the "to_game" section)
-    def to_quiz(self, total_questions):
+    def to_quiz(self, question_amount):
 
         # Retrieve starting balance
-        total_questions = self.number_entry_box.get()
+        question_amount = self.number_entry_box.get()
         
         # Takes variables to the quiz class
-        Quiz(self, total_questions)
+        Quiz(self, question_amount)
 
         # Hide start up window
         root.withdraw()
