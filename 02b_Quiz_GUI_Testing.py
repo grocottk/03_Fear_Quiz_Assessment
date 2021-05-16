@@ -12,7 +12,7 @@ from functools import partial # This prevents unwanted windows from opening
 
 # The majority of the below code is from the program known as "05_Game_Playable.py"
 
-# Start Class (with various portions taken from "01_Mystery_Box_Outline.py" and also "02_Converter_GUI.py")
+# Beginning of Start class
 class Start:
     def __init__(self, parent):
 
@@ -55,9 +55,9 @@ class Quiz:
         self.quiz_frame = Frame(self.quiz_box, padx=10, pady=10)
         self.quiz_frame.grid()
 
-        # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="1/{}".format(question_amount), font="Arial 10 bold",
-                                padx=10, pady=10, justify=CENTER)
+        # Instructions label (Row 0)
+        self.question_number_label = Label(self.quiz_frame, justify=CENTER, text="1/{}".format(question_amount), 
+                                        font="Arial 10 bold", padx=10, pady=10)
         self.question_number_label.grid(row=0)
 
     def to_quit(self):
