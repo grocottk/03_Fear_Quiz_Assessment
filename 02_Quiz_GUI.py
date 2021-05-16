@@ -60,6 +60,21 @@ class Quiz:
                                 padx=10, pady=10, justify=CENTER)
         self.question_number_label.grid(row=0)
 
+        # Question text [Part 1] (Row 1)
+        self.question_text_part_one = Label(self.quiz_frame, text="The word...", font="Arial 15",
+                                        padx=10, pady=10, justify=LEFT)
+        self.question_text_part_one.grid(row=1)
+
+        # Fear Name (Row 2)
+        self.fear_name_label = Label(self.quiz_frame, text="[Fear Name]", font="Arial 25",
+                                        padx=10, pady=10, justify=CENTER)
+        self.fear_name_label.grid(row=2)
+
+        # Question text [Part 2] (Row 3)
+        self.question_text_part_two = Label(self.quiz_frame, text="represents a fear of...", font="Arial 15",
+                                        padx=10, pady=10, justify=LEFT)
+        self.question_text_part_two.grid(row=3)
+
     def to_quit(self):
 
         root.destroy()
