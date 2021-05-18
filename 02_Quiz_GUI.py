@@ -9,6 +9,18 @@
 from tkinter import *
 import random
 from functools import partial # This prevents unwanted windows from opening
+import pandas as pd # This import statement is from the template at the following link: https://datatofish.com/import-csv-file-python-using-pandas/
+
+# Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/
+
+# This defines the fear_list variable as the entire provided .csv file
+fear_list = pd.read_csv (r'C:\users\grocottk70790\OneDrive - Massey High School\COM301\91906_&_91907_Programming\03_Fear_Quiz_Assessment\fear_list.csv')
+
+# The following expands on the above line(s) of code and is taken from the following link: https://datatofish.com/import-csv-file-python-using-pandas/
+df = pd.DataFrame(data, columns= ['Client Name','Country'])
+
+# Prints the entirety of the fear_list variable
+print (fear_list)
 
 # The majority of the below code is from the program known as "05_Game_Playable.py"
 
