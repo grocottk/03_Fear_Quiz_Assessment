@@ -22,7 +22,7 @@ class Start:
 
         # Test Button (Row 0)
         self.push_me_button = Button(self.start_frame, text="Press This", command=self.to_game)
-        self.push_me_button.grid(row=0, pady=5)
+        self.push_me_button.grid(row=0, pady=50, padx=50)
 
     def to_game(self):
 
@@ -57,7 +57,7 @@ class Quiz:
 
         # Question number label (Row 0)
         self.question_number_label = Label(self.quiz_frame, text="1/{}".format(question_amount), font="Arial 10 bold",
-                                padx=10, pady=10, justify=CENTER)
+                                padx=10, pady=2, justify=CENTER)
         self.question_number_label.grid(row=0)
 
         # Question text [Part 1] (Row 1)
@@ -74,6 +74,59 @@ class Quiz:
         self.question_text_part_two = Label(self.quiz_frame, text="represents a fear of...", font="Arial 15",
                                         padx=10, pady=10, justify=LEFT)
         self.question_text_part_two.grid(row=3)
+
+        # Answers Frame Setup (Row 4) [From "00_Compiled_Version_6.py"] 
+        # ... (Formatting in this frame has been designed from a diagram)
+        self.answers_frame = Frame(self.quiz_frame)
+        self.answers_frame.grid(row=4, pady=10, padx=10)
+
+        # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="[Option 1]")
+        self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
+
+        # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"]
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", text="[Option 2]")
+        self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
+
+        # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", text="[Option 3]")
+        self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
+
+        # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", text="[Option 4]")
+        self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
+
+        # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
+        # ... (Formatting in this frame has been designed from a diagram) 
+        # ... [This setup has been adapted from the above frame]
+        self.answers_submit_frame = Frame(self.quiz_frame)
+        self.answers_submit_frame.grid(row=5, pady=10, padx=10)
+
+        # Check Answer Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"] (Adapted from above button template)
+        self.check_answer_button = Button(self.answers_submit_frame, font="Arial 10", text="Check Answer", bg="yellow")
+        self.check_answer_button.grid(row=0, column=0, pady=5, padx=10)
+
+        # Next Question Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] (Adapted from above button template)
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Next Question", bg="green")
+        self.next_question_button.grid(row=0, column=1, pady=5, padx=10)
+
+        # Statistics Summary Label (Row 6)
+        self.statistics_summary_label = Label(self.quiz_frame, font="Arial 10", text="", pady=10, padx=5)
+        self.statistics_summary_label.grid(row=6)
+
+        # Quiz Bottom Buttons Frame (Row 7) [inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"]
+        # ... (From "01_Start_GUI.py")
+        self.quiz_bottom_buttons_frame = Frame(self.quiz_frame)
+        self.quiz_bottom_buttons_frame.grid(row=7)
+        
+        # Quit Button (Row 0, Column 0) [Function from "05_Game_Playable.py"]
+        self.quit_button = Button(self.quiz_bottom_buttons_frame, text="Quit", font="Arial 10", pady=5, padx=10, bg="red",
+                                command=self.to_quit)
+        self.quit_button.grid(row=0, column=0, padx=10)
+
+        # Help Button (Row 0, Column 1)
+        self.help_button = Button(self.quiz_bottom_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10, bg="orange")
+        self.help_button.grid(row=0, column=1, padx=10)
 
     def to_quit(self):
 
