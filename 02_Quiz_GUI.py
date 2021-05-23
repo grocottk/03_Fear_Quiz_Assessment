@@ -11,17 +11,6 @@ import random
 from functools import partial # This prevents unwanted windows from opening
 import pandas as pd # This import statement is from the template at the following link: https://datatofish.com/import-csv-file-python-using-pandas/
 
-# Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/
-
-# This defines the fear_list variable as the entire provided .csv file
-fear_list = pd.read_csv (r'C:\users\grocottk70790\OneDrive - Massey High School\COM301\91906_&_91907_Programming\03_Fear_Quiz_Assessment\fear_list.csv')
-
-# The following expands on the above line(s) of code and is taken from the following link: https://datatofish.com/import-csv-file-python-using-pandas/
-df = pd.DataFrame(pd.read_csv, columns= ['Client Name','Country'])
-
-# Prints the entirety of the fear_list variable
-print(fear_list)
-
 # The majority of the below code is from the program known as "05_Game_Playable.py"
 
 # Start Class (with various portions taken from "01_Mystery_Box_Outline.py" and also "02_Converter_GUI.py")
@@ -46,10 +35,33 @@ class Start:
         # Hide start up window
         self.start_frame.destroy()
 
+# Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py")
 class Quiz:
     def __init__(self, partner, question_amount):
 
         print(question_amount)
+            
+        # Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
+        # ... Code in the List Testing version has been adapted from the shown link ("https://datatofish.com/import-csv-file-python-using-pandas/")
+        # ... during later versions. (Other resources used include: https://datatofish.com/convert-pandas-dataframe-to-list/, and https://datatofish.com/import-csv-file-python-using-pandas/)
+
+        # This defines the fear_list variable as the entire provided .csv file
+        fear_data = pd.read_csv (r'C:\users\grocottk70790\OneDrive - Massey High School\COM301\91906_&_91907_Programming\03_Fear_Quiz_Assessment\fear_list.csv')   
+
+        # The following expands on the above line(s) of code and is taken from the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
+        # ... Collumn names taken from provided .csv file [Prior research and inspiration taken from the following sites: "https://www.datacamp.com/community/tutorials/python-select-columns", 
+        # ... https://cmdlinetips.com/2020/04/3-ways-to-select-one-or-more-columns-with-pandas/, https://www.kite.com/python/answers/how-to-get-select-elements-from-a-list-or-tuple-in-python].
+        # ... (Collumn names taken from "fear_list.csv")
+        df = pd.DataFrame(fear_data, columns= ['Name','Fear'])
+
+        # Converts "Pandas DataFrame" to a list (from the following link: "https://datatofish.com/convert-pandas-dataframe-to-list/")
+        df = df.values.tolist()
+
+        # Prints the entirety of the fear_list variable
+        print (df)
+
+        # Chooses a random selection from the given list, and stores it as the "question_choice" variable (From "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
+        question_choice = (random.choice(df))
 
         # Initialise question variable
         self.question = IntVar()
@@ -77,8 +89,11 @@ class Quiz:
                                         padx=10, pady=10, justify=LEFT)
         self.question_text_part_one.grid(row=1)
 
-        # Fear Name (Row 2)
-        self.fear_name_label = Label(self.quiz_frame, text="[Fear Name]", font="Arial 25",
+        # Fear Name (Row 2) [Inspiration taken from the following sites: "https://www.datacamp.com/community/tutorials/python-select-columns", 
+        # ... https://cmdlinetips.com/2020/04/3-ways-to-select-one-or-more-columns-with-pandas/, https://www.kite.com/python/answers/how-to-get-select-elements-from-a-list-or-tuple-in-python]
+        # ... (Formatting inspiration taken from the following link(s): https://www.kite.com/python/answers/how-to-get-select-elements-from-a-list-or-tuple-in-python,
+        # ... https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list)
+        self.fear_name_label = Label(self.quiz_frame, text="{}".format(question_choice[0]), font="Arial 25",
                                         padx=10, pady=10, justify=CENTER)
         self.fear_name_label.grid(row=2)
 
@@ -92,8 +107,8 @@ class Quiz:
         self.answers_frame = Frame(self.quiz_frame)
         self.answers_frame.grid(row=4, pady=10, padx=10)
 
-        # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="[Option 1]")
+        # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"] (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="{}".format(question_choice[1]))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"]

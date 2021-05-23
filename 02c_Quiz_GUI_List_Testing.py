@@ -105,8 +105,8 @@ class Quiz:
         self.answers_frame = Frame(self.quiz_frame)
         self.answers_frame.grid(row=4, pady=10, padx=10)
 
-        # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="[Option 1]")
+        # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"] (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="{}".format(question_choice[1]))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"]
