@@ -127,22 +127,22 @@ class Quiz:
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="{}".format(questions_sample[random.choice(question_placing)][1]))
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[0][1]))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", text="{}".format(questions_sample[random.choice(question_placing)][1]))
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[1][1]))
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", text="{}".format(questions_sample[random.choice(question_placing)][1]))
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[2][1]))
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", text="{}".format(questions_sample[random.choice(question_placing)][1]))
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[3][1]))
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
