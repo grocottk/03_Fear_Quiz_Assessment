@@ -45,10 +45,6 @@ class Quiz:
         
         # Prints question amount for testing purposes
         print(question_amount)
-
-        # Defines correct answers as 0 at the beginning of the quiz
-        correct_answers = 0
-        self.check_answer(0, 0)
             
         # Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
         # ... Code in the List Testing version has been adapted from the shown link ("https://datatofish.com/import-csv-file-python-using-pandas/")
@@ -71,9 +67,6 @@ class Quiz:
 
         # Chooses a random selection from the given list, and stores it as the "question_choice" variable (From "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         correct_question_choice = (random.choice(df))
-
-        # Chooses an incorrect selection from the list
-        incorrect_question_choice = (random.choice(df))
 
         # Samples questions from larger list (from the following link: https://pynative.com/python-random-sample/):
         questions_sample = random.sample(df, 4)
@@ -102,7 +95,7 @@ class Quiz:
         self.quiz_frame.grid()
 
         # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format(correct_answers, question_amount), font="Arial 10 bold",
+        self.question_number_label = Label(self.quiz_frame, text="1/{}".format(question_amount), font="Arial 10 bold",
                                 padx=10, pady=2, justify=CENTER)
         self.question_number_label.grid(row=0)
 
@@ -164,9 +157,9 @@ class Quiz:
         self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Next Question", bg="green")
         self.next_question_button.grid(row=0, column=1, pady=5, padx=10)
 
-        # Statistics Summary Label (Row 6)
-        self.statistics_summary_label = Label(self.quiz_frame, font="Arial 10", text="", pady=10, padx=5)
-        self.statistics_summary_label.grid(row=6)
+        # Answer Label (Row 6)
+        self.answer_label = Label(self.quiz_frame, font="Arial 10", text="", pady=10, padx=5)
+        self.answer_label.grid(row=6)
 
         # Quiz Bottom Buttons Frame (Row 7) [inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"]
         # ... (From "01_Start_GUI.py")
@@ -184,20 +177,26 @@ class Quiz:
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     def check_answer(self, chosen_button):
-
+        
+        # Prints chosen button variable
         print (chosen_button)
 
-        correct_answers = 0
-
+        # If the chosen button variable is equal to 0, tell the user that they are correct.
         if chosen_button == 0:
-
-            correct_answers+1
-
-        print(correct_answers)
+            
+            # Changes answer section to display a correct error message (configure section from "12g_Assembled_Program.py")
+            self.answer_label.configure(text="Correct", fg="green")
         
+        # If the chosen button variable is not equal to 0, tell the user that they are incorrect.
+        else:
+            
+            # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
+            self.answer_label.configure(text="Incorrect", fg="red")
+
     # Function to quit game
     def to_quit(self):
 
+        # Destroys window
         root.destroy()
 
 # Main Routine (edited from "02_Start_GUI.py")
