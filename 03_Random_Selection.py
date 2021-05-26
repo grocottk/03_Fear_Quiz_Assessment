@@ -42,8 +42,13 @@ class Start:
 # Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py")
 class Quiz:
     def __init__(self, partner, question_amount):
-
+        
+        # Prints question amount for testing purposes
         print(question_amount)
+
+        # Defines correct answers as 0 at the beginning of the quiz
+        correct_answers = 0
+        self.check_answer(0, 0)
             
         # Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
         # ... Code in the List Testing version has been adapted from the shown link ("https://datatofish.com/import-csv-file-python-using-pandas/")
@@ -97,7 +102,7 @@ class Quiz:
         self.quiz_frame.grid()
 
         # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="1/{}".format(question_amount), font="Arial 10 bold",
+        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format(correct_answers, question_amount), font="Arial 10 bold",
                                 padx=10, pady=2, justify=CENTER)
         self.question_number_label.grid(row=0)
 
@@ -111,7 +116,7 @@ class Quiz:
         # ... (Formatting inspiration taken from the following link(s): https://www.kite.com/python/answers/how-to-get-select-elements-from-a-list-or-tuple-in-python,
         # ... https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list)
         # ... [Research on how to select from a list within a list: https://stackoverflow.com/questions/18449360/access-item-in-a-list-of-lists]
-        self.fear_name_label = Label(self.quiz_frame, text="{}".format(questions_sample[0][0]), font="Arial 25",
+        self.fear_name_label = Label(self.quiz_frame, text="{}".format(random_answer[0][0]), font="Arial 25",
                                         padx=10, pady=10, justify=CENTER)
         self.fear_name_label.grid(row=2)
 
@@ -121,28 +126,28 @@ class Quiz:
         self.question_text_part_two.grid(row=3)
 
         # Answers Frame Setup (Row 4) [From "00_Compiled_Version_6.py"] 
-        # ... (Formatting in this frame has been designed from a diagram)
+        # ... (Formatting in this frame has been designed from a diagram) [Some button formatting from "12g_Assembled_Program.py"]
         self.answers_frame = Frame(self.quiz_frame)
         self.answers_frame.grid(row=4, pady=10, padx=10)
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[0][1]))
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[0][1]), command=lambda: self.check_answer(0))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[1][1]))
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[1][1]), command=lambda: self.check_answer(1))
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[2][1]))
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[2][1]), command=lambda: self.check_answer(2))
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[3][1]))
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(random_answer[3][1]), command=lambda: self.check_answer(3))
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -177,6 +182,20 @@ class Quiz:
         self.help_button = Button(self.quiz_bottom_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10, bg="orange")
         self.help_button.grid(row=0, column=1, padx=10)
 
+    # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
+    def check_answer(self, chosen_button):
+
+        print (chosen_button)
+
+        correct_answers = 0
+
+        if chosen_button == 0:
+
+            correct_answers+1
+
+        print(correct_answers)
+        
+    # Function to quit game
     def to_quit(self):
 
         root.destroy()
