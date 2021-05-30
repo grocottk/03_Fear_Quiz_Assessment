@@ -49,6 +49,10 @@ class Quiz:
         
         # Prints question amount for testing purposes
         print(question_amount)
+        
+        # Defining user_answer variable
+        self.user_answer = StringVar
+
             
         # Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
         # ... Code in the List Testing version has been adapted from the shown link ("https://datatofish.com/import-csv-file-python-using-pandas/")
@@ -123,27 +127,27 @@ class Quiz:
 
         # Answers Frame Setup (Row 4) [From "00_Compiled_Version_6.py"] 
         # ... (Formatting in this frame has been designed from a diagram) [Some button formatting from "12g_Assembled_Program.py"]
-        self.answers_frame = Frame(self.quiz_frame, command=self.check_answer)
+        self.answers_frame = Frame(self.quiz_frame)
         self.answers_frame.grid(row=4, pady=10, padx=10)
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[0][1]))
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[0][1]), command=self.check_answer())
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[1][1]))
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[1][1]), command=self.check_answer())
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[2][1]))
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[2][1]), command=self.check_answer())
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[3][1]))
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[3][1]), command=self.check_answer())
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -178,26 +182,17 @@ class Quiz:
         self.help_button = Button(self.quiz_bottom_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10, bg="orange")
         self.help_button.grid(row=0, column=1, padx=10)
 
+    # Question randomising function
+    def question_randomising(self):
+
+        # Get user_answer variable from program
+        chosen_answer = self.user_answer.get
+
+        # Prints chosen answer for testing purposes
+        print (chosen_answer)
+
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
-    def check_answer(self):
-
-        # Getting randomised_answers variable (From "00_Compiled_Version_5.py")
-        answer_choice = self.answers_frame.get()
-
-        # Prints questions sample
-        print (answer_choice)
-
-        # If the chosen button variable is equal to 0, tell the user that they are correct.
-        if questions_sampler[0] == answer_choice:
-            
-            # Changes answer section to display a correct error message (configure section from "12g_Assembled_Program.py")
-            self.answer_label.configure(text="Correct", fg="green")
-        
-        # If the chosen button variable is not equal to 0, tell the user that they are incorrect.
-        else:
-            
-            # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
-            self.answer_label.configure(text="Incorrect", fg="red")
+    # def check_answer(self, answer_choice):
 
     # Function to quit game
     def to_quit(self):
