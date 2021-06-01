@@ -46,43 +46,12 @@ class Start:
 # Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py")
 class Quiz:
     def __init__(self, partner, question_amount):
-        
+
         # Prints question amount for testing purposes
         print(question_amount)
         
         # Defining user_answer variable
         self.user_answer = StringVar
-
-            
-        # Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
-        # ... Code in the List Testing version has been adapted from the shown link ("https://datatofish.com/import-csv-file-python-using-pandas/")
-        # ... during later versions. (Other resources used include: https://datatofish.com/convert-pandas-dataframe-to-list/, and https://datatofish.com/import-csv-file-python-using-pandas/)
-
-        # This defines the fear_list variable as the entire provided .csv file
-        fear_data = pd.read_csv (r'C:\users\grocottk70790\OneDrive - Massey High School\COM301\91906_&_91907_Programming\03_Fear_Quiz_Assessment\fear_list.csv')   
-
-        # The following expands on the above line(s) of code and is taken from the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
-        # ... Collumn names taken from provided .csv file [Prior research and inspiration taken from the following sites: "https://www.datacamp.com/community/tutorials/python-select-columns", 
-        # ... https://cmdlinetips.com/2020/04/3-ways-to-select-one-or-more-columns-with-pandas/, https://www.kite.com/python/answers/how-to-get-select-elements-from-a-list-or-tuple-in-python].
-        # ... (Collumn names taken from "fear_list.csv")
-        df = pd.DataFrame(fear_data, columns= ['Name','Fear'])
-
-        # Converts "Pandas DataFrame" to a list (from the following link: "https://datatofish.com/convert-pandas-dataframe-to-list/")
-        df = df.values.tolist()
-
-        # Prints the entirety of the fear_list variable
-        # print (df)
-
-        # Takes four ()
-        questions_sample = random.sample(df, 4)
-
-        # Defines correct question and answer from list
-        correct_list = questions_sample[0]
-        correct_question = correct_list[0]
-        correct_answer = correct_list[1]
-
-        # Rearranges list into randomised order (somewhat related to the following link: https://pynative.com/python-random-sample/):
-        randomised_answers = random.sample(questions_sample, 4)
 
         # Initialise question variable
         self.question = IntVar()
@@ -116,7 +85,7 @@ class Quiz:
         # ... https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list)
         # ... [Research on how to select from a list within a list: https://stackoverflow.com/questions/18449360/access-item-in-a-list-of-lists]
         # ... (This has also been inspired by the file named "00_Compiled_Version_5.py")
-        self.fear_name_label = Label(self.quiz_frame, text="{}".format(correct_question), font="Arial 25",
+        self.fear_name_label = Label(self.quiz_frame, text="", font="Arial 25",
                                         padx=10, pady=10, justify=CENTER)
         self.fear_name_label.grid(row=2)
 
@@ -132,22 +101,22 @@ class Quiz:
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[0][1]), command=self.check_answer())
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[1][1]), command=self.check_answer())
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[2][1]), command=self.check_answer())
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="{}".format(randomised_answers[3][1]), command=self.check_answer())
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -157,11 +126,11 @@ class Quiz:
         self.answers_submit_frame.grid(row=5, pady=10, padx=10)
 
         # Check Answer Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"] (Adapted from above button template)
-        self.check_answer_button = Button(self.answers_submit_frame, font="Arial 10", text="Check Answer", bg="yellow")
+        self.check_answer_button = Button(self.answers_submit_frame, font="Arial 10", text="Check Answer", bg="yellow", state=DISABLED)
         self.check_answer_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Next Question Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] (Adapted from above button template)
-        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Next Question", bg="green")
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green", command=self.question_randomising)
         self.next_question_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Label (Row 6)
@@ -185,11 +154,62 @@ class Quiz:
     # Question randomising function
     def question_randomising(self):
 
-        # Get user_answer variable from program
-        chosen_answer = self.user_answer.get
+        # Disables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
+        self.check_answer_button.config(state=DISABLED)
 
-        # Prints chosen answer for testing purposes
-        print (chosen_answer)
+        # Changes Begin Quiz button to Next Question button
+        self.next_question_button.config(text="Next Question")
+
+        # Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
+        # ... Code in the List Testing version has been adapted from the shown link ("https://datatofish.com/import-csv-file-python-using-pandas/")
+        # ... during later versions. (Other resources used include: https://datatofish.com/convert-pandas-dataframe-to-list/, and https://datatofish.com/import-csv-file-python-using-pandas/)
+
+        # This defines the fear_list variable as the entire provided .csv file
+        fear_data = pd.read_csv (r'C:\users\grocottk70790\OneDrive - Massey High School\COM301\91906_&_91907_Programming\03_Fear_Quiz_Assessment\fear_list.csv')   
+
+        # The following expands on the above line(s) of code and is taken from the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
+        # ... Collumn names taken from provided .csv file [Prior research and inspiration taken from the following sites: "https://www.datacamp.com/community/tutorials/python-select-columns", 
+        # ... https://cmdlinetips.com/2020/04/3-ways-to-select-one-or-more-columns-with-pandas/, https://www.kite.com/python/answers/how-to-get-select-elements-from-a-list-or-tuple-in-python].
+        # ... (Collumn names taken from "fear_list.csv")
+        df = pd.DataFrame(fear_data, columns= ['Name','Fear'])
+
+        # Converts "Pandas DataFrame" to a list (from the following link: "https://datatofish.com/convert-pandas-dataframe-to-list/")
+        df = df.values.tolist()
+
+        # Prints the entirety of the fear_list variable
+        # print (df)
+
+
+        # Takes four distinct questions and answers from the list and merges them into one (1) list
+        questions_sample = random.sample(df, 4)
+
+        # Prints questions_sample (for testing purposes)
+        print (questions_sample)
+
+        # Defines correct question and answer from list
+        correct_list = questions_sample[0]
+        correct_question = correct_list[0]
+        correct_answer = correct_list[1]
+
+        # Changing Fear Name Label to correct answer
+        self.fear_name_label.config(text=correct_question)
+
+        # Rearranges list into randomised order (somewhat related to the following link: https://pynative.com/python-random-sample/):
+        randomised_answers = random.sample(questions_sample, 4)
+
+        # Enables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
+        self.check_answer_button.config(state=NORMAL)
+        
+        # Configuring button text
+        self.answer_option_one_button.config(text=randomised_answers[0][1])
+        self.answer_option_two_button.config(text=randomised_answers[1][1])
+        self.answer_option_three_button.config(text=randomised_answers[2][1])
+        self.answer_option_four_button.config(text=randomised_answers[3][1])
+
+    # Answer Checking Function
+    # def answer_checking(self):
+
+        # Check the user's entry and see if it is correct
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
