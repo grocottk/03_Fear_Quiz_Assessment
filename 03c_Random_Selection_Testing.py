@@ -131,7 +131,9 @@ class Quiz:
         self.check_answer_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Next Question Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] (Adapted from above button template) [Partially inspired by "00_Compiled_Version_6.py".]
-        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green", command=lambda: self.question_randomising(0))
+        # ... (Inspiration for button from: "https://stackoverflow.com/questions/57235726/how-can-i-assign-a-function-to-a-variable-without-running-it".)
+        # ... [From the file "00_Compiled_Version_6.py".]
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green", command=partial(self.question_randomising))
         self.next_question_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Label (Row 6)
@@ -180,7 +182,6 @@ class Quiz:
         # Prints the entirety of the fear_list variable
         # print (df)
 
-
         # Takes four distinct questions and answers from the list and merges them into one (1) list
         questions_sample = random.sample(df, 4)
 
@@ -219,8 +220,19 @@ class Quiz:
         # Printing user choice for testing purposes
         print (user_choice)
         
+        # Prints chosen asnwer variable for testing purposes
+        print (chosen_answer)
+
+        # If the user's choice is equal to the correct answer, tell the user that their answer is correct
+        if user_choice == correct_answer:
+            print ("correct")
+        
+        # Otherwise, tell the user that their answer is incorrect
+        else:
+            print("incorrect")
+
         # Enables the Next Question button once the answer is checked (from "00_Compiled_Version_6.py")
-        self.check_answer_button.config(state=NORMAL)
+        self.next_question_button.config(state=NORMAL)
 
     # Answer Checking Function (with portions from the file "00_Compiled_Version_6.py".) 
     # ... [Reserch on passing variables between functions as follows: https://stackoverflow.com/questions/16043797/python-passing-variables-between-functions]
