@@ -198,8 +198,14 @@ class Quiz:
         # Rearranges list into randomised order (somewhat related to the following link: https://pynative.com/python-random-sample/):
         randomised_answers = random.sample(questions_sample, 4)
 
+        # Prints the correct anwer variable for testing purposes
+        print (correct_answer)
+
         # Enables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
         self.check_answer_button.config(state=NORMAL)
+        
+        # Disables Next Question button until answer is checked (from "00_Compiled_Version_6.py")
+        self.next_question_button.config(state=DISABLED)
         
         # Configuring button text
         self.answer_option_one_button.config(text=randomised_answers[0][1])
@@ -207,15 +213,21 @@ class Quiz:
         self.answer_option_three_button.config(text=randomised_answers[2][1])
         self.answer_option_four_button.config(text=randomised_answers[3][1])
 
+        # Defining the user_choice variable
         user_choice = randomised_answers[chosen_answer][1]
 
+        # Printing user choice for testing purposes
         print (user_choice)
+        
+        # Enables the Next Question button once the answer is checked (from "00_Compiled_Version_6.py")
+        self.check_answer_button.config(state=NORMAL)
 
-    # Answer Checking Function (with portions from the file "00_Compiled_Version_6.py".)
-    def answer_checking(self, chosen_answer, randomised_answers):
+    # Answer Checking Function (with portions from the file "00_Compiled_Version_6.py".) 
+    # ... [Reserch on passing variables between functions as follows: https://stackoverflow.com/questions/16043797/python-passing-variables-between-functions]
+    # def answer_checking(self, chosen_answer, randomised_answers):
 
         # Prints chosen answer variable (for testing purposes)
-        print (chosen_answer)
+        # print (chosen_answer)
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
