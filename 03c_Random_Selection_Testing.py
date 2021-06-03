@@ -102,22 +102,22 @@ class Quiz:
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(0))
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.answer_checking(0))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(1))
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.answer_checking(1))
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(2))
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.answer_checking(2))
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(3))
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.answer_checking(3))
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -133,7 +133,7 @@ class Quiz:
         # Next Question Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] (Adapted from above button template) [Partially inspired by "00_Compiled_Version_6.py".]
         # ... (Inspiration for button from: "https://stackoverflow.com/questions/57235726/how-can-i-assign-a-function-to-a-variable-without-running-it".)
         # ... [From the file "00_Compiled_Version_6.py".]
-        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green", command=partial(self.question_randomising))
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green", command=partial(self.answer_checking, 0))
         self.next_question_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Label (Row 6)
@@ -155,10 +155,13 @@ class Quiz:
         self.help_button.grid(row=0, column=1, padx=10)
 
     # Question randomising function
-    def question_randomising(self, chosen_answer):
+    def question_randomising(self):
 
         # Disables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
         self.check_answer_button.config(state=DISABLED)
+                        
+        # Disables Next Question button until answer is checked (from "00_Compiled_Version_6.py")
+        self.next_question_button.config(state=DISABLED)
 
         # Changes Begin Quiz button to Next Question button
         self.next_question_button.config(text="Next Question")
@@ -204,15 +207,39 @@ class Quiz:
 
         # Enables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
         self.check_answer_button.config(state=NORMAL)
-        
-        # Disables Next Question button until answer is checked (from "00_Compiled_Version_6.py")
-        self.next_question_button.config(state=DISABLED)
-        
+
         # Configuring button text
         self.answer_option_one_button.config(text=randomised_answers[0][1])
         self.answer_option_two_button.config(text=randomised_answers[1][1])
         self.answer_option_three_button.config(text=randomised_answers[2][1])
         self.answer_option_four_button.config(text=randomised_answers[3][1])
+
+        return randomised_answers
+        return correct_answer
+
+    # Answer Checking Function (with portions from the file "00_Compiled_Version_6.py".) 
+    # ... [Reserch on passing variables between functions as follows: https://stackoverflow.com/questions/16043797/python-passing-variables-between-functions]
+    # ... (Further information from "https://www.geekpills.com/operating-system/linux/python-passing-variable-between-functions")
+    # ... [Further research at the following link: "https://www.semicolonworld.com/question/57240/python-passing-variables-between-functions".]
+    # ... (Further research on get statements: "https://www.tutorialspoint.com/python3/dictionary_get.htm") [Inspiration also from "00_Compiled_Version_6.py"]
+    def answer_checking(self, chosen_answer):
+        
+        option_one_press = self.answer_option_one_button.get()
+        option_two_press = self.answer_option_two_button.get()
+        option_three_press = self.answer_option_three_button.get()
+        option_four_press = self.answer_option_four_button.get()
+
+        print (option_one_press)
+        print (option_two_press)
+        print (option_three_press)
+        print (option_four_press)
+
+        print (answers_list)
+        print (randomised_answers)
+        print (correct_answer)
+
+        # Prints chosen answer variable (for testing purposes)
+        print (chosen_answer)
 
         # Defining the user_choice variable
         user_choice = randomised_answers[chosen_answer][1]
@@ -233,13 +260,6 @@ class Quiz:
 
         # Enables the Next Question button once the answer is checked (from "00_Compiled_Version_6.py")
         self.next_question_button.config(state=NORMAL)
-
-    # Answer Checking Function (with portions from the file "00_Compiled_Version_6.py".) 
-    # ... [Reserch on passing variables between functions as follows: https://stackoverflow.com/questions/16043797/python-passing-variables-between-functions]
-    # def answer_checking(self, chosen_answer, randomised_answers):
-
-        # Prints chosen answer variable (for testing purposes)
-        # print (chosen_answer)
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
