@@ -96,27 +96,28 @@ class Quiz:
 
         # Answers Frame Setup (Row 4) [From "00_Compiled_Version_6.py"] 
         # ... (Formatting in this frame has been designed from a diagram) [Some button formatting from "12g_Assembled_Program.py"]
+        # ... (Portions of this button have been inspired by the file "00_Compiled_Version_6.py".)
         self.answers_frame = Frame(self.quiz_frame)
         self.answers_frame.grid(row=4, pady=10, padx=10)
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(0))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(1))
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(2))
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="")
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.question_randomising(3))
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -129,8 +130,8 @@ class Quiz:
         self.check_answer_button = Button(self.answers_submit_frame, font="Arial 10", text="Check Answer", bg="yellow", state=DISABLED)
         self.check_answer_button.grid(row=0, column=0, pady=5, padx=10)
 
-        # Next Question Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] (Adapted from above button template)
-        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green", command=self.question_randomising)
+        # Next Question Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] (Adapted from above button template) [Partially inspired by "00_Compiled_Version_6.py".]
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green", command=lambda: self.question_randomising(0))
         self.next_question_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Label (Row 6)
@@ -152,7 +153,7 @@ class Quiz:
         self.help_button.grid(row=0, column=1, padx=10)
 
     # Question randomising function
-    def question_randomising(self):
+    def question_randomising(self, chosen_answer):
 
         # Disables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
         self.check_answer_button.config(state=DISABLED)
@@ -206,10 +207,15 @@ class Quiz:
         self.answer_option_three_button.config(text=randomised_answers[2][1])
         self.answer_option_four_button.config(text=randomised_answers[3][1])
 
-    # Answer Checking Function
-    # def answer_checking(self):
+        user_choice = randomised_answers[chosen_answer][1]
 
-        # Check the user's entry and see if it is correct
+        print (user_choice)
+
+    # Answer Checking Function (with portions from the file "00_Compiled_Version_6.py".)
+    def answer_checking(self, chosen_answer, randomised_answers):
+
+        # Prints chosen answer variable (for testing purposes)
+        print (chosen_answer)
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
