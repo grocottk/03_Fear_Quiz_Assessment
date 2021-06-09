@@ -86,6 +86,8 @@ class Quiz:
         # ... https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list)
         # ... [Research on how to select from a list within a list: https://stackoverflow.com/questions/18449360/access-item-in-a-list-of-lists]
         # ... (This has also been inspired by the file named "00_Compiled_Version_5.py")
+        # ... [The following link inspires the below button's functionality, and was used late in the quiz main functionality's trialing process:
+        # ... https://stackoverflow.com/questions/26765218/get-the-text-of-a-button-widget]
         self.fear_name_label = Label(self.quiz_frame, text="", font="Arial 25",
                                         padx=10, pady=10, justify=CENTER)
         self.fear_name_label.grid(row=2)
