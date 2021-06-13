@@ -29,7 +29,7 @@ class Start:
         self.start_frame = Frame(padx=10, pady=10)
         self.start_frame.grid()
         
-        # Defining question_amount variable
+        # Defining question_amount_check variable
         self.question_amount = IntVar()
         self.question_amount.set(0)
 
@@ -111,18 +111,33 @@ class Start:
 
     def to_quiz(self):
 
-        Quiz(self)
+        # Gets question amount from entry box (from "00_Compiled_Version_6.py")
+        user_question_amount = self.number_entry_box.get()
+        
+        # Prints the user_question_amount for testing
+        print (user_question_amount)
+
+        # Sends variables to Quiz segmnent
+        Quiz(self, user_question_amount)
 
         # Hide start up window
         self.start_frame.destroy()
 
-# Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py")
+# Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py") [This segment also takes inspiration from the file "00_Compiled_Version_6.py"]
 class Quiz:
-    def __init__(self, partner):
+    def __init__(self, partner, user_question_amount):
 
-        # Sets up quiz question amount
-        self.quiz_question_amount = IntVar
-        self.quiz_question_amount.set(self.question_amount)
+        # Converts the user_question_amount into a variable
+        user_question_amount = int(user_question_amount)
+
+        # Initialise question_number variable
+        self.question_number = IntVar
+
+        # Prints the user_question_amount for testing
+        print (user_question_amount)
+
+        # Sets the question number variable to the question amount stated in the start section
+        self.question_number.set(user_question_amount)
         
         # Defining correct_answer variable
         self.correct_answer = StringVar()
