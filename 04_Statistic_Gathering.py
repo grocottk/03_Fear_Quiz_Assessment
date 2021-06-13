@@ -131,14 +131,19 @@ class Quiz:
         user_question_amount = int(user_question_amount)
 
         # Initialise question_number variable
-        self.question_number = IntVar
+        self.question_number = IntVar()
+
+        # Sets the question number variable to the question amount stated in the start section (Resarch done includes the following:
+        # https://www.google.com/search?q=.set+command+missing+1+value+in+python&rlz=1C1GCEV_enNZ951NZ952&oq=.set+command+missing+1+value+in+python&aqs=chrome..69i57.15571j0j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on,
+        # https://stackoverflow.com/questions/38170566/python-typeerror-set-missing-1-required-positional-argument-value)
+        self.question_number.set(user_question_amount)
+
+        # Defining statistics list(s) (inspired by "00_Compiled_Version_6.py")
+        # quiz_statistics_list = [user_question_amount, user_question_amount]
 
         # Prints the user_question_amount for testing
         print (user_question_amount)
 
-        # Sets the question number variable to the question amount stated in the start section
-        self.question_number.set(user_question_amount)
-        
         # Defining correct_answer variable
         self.correct_answer = StringVar()
 
@@ -147,10 +152,10 @@ class Quiz:
         self.correct_answer_count.set(0)
 
         # Initialise question variable
-        self.question = IntVar()
+        # self.question_number = IntVar()
 
         # Set question variable to question amount entered by user at start of the quiz
-        self.question.set(self.quiz_question_amount)
+        # self.question_number.set(self.user_question_amount)
 
         # GUI Setup
         self.quiz_box = Toplevel()
@@ -163,7 +168,7 @@ class Quiz:
         self.quiz_frame.grid()
 
         # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="1/{}".format(self.quiz_question_amount), font="Arial 10 bold",
+        self.question_number_label = Label(self.quiz_frame, text="1/{}".format(self.question_number), font="Arial 10 bold",
                                 padx=10, pady=2, justify=CENTER)
         self.question_number_label.grid(row=0)
 
