@@ -130,13 +130,16 @@ class Quiz:
         # Converts the user_question_amount into a variable
         user_question_amount = int(user_question_amount)
 
-        # Initialise question_number variable
+        # Initialise the number of questions variable
+        self.number_of_questions = IntVar()
+
+        # Initialise the question number variable
         self.question_number = IntVar()
 
         # Sets the question number variable to the question amount stated in the start section (Resarch done includes the following:
         # https://www.google.com/search?q=.set+command+missing+1+value+in+python&rlz=1C1GCEV_enNZ951NZ952&oq=.set+command+missing+1+value+in+python&aqs=chrome..69i57.15571j0j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on,
         # https://stackoverflow.com/questions/38170566/python-typeerror-set-missing-1-required-positional-argument-value)
-        self.question_number.set(user_question_amount)
+        self.number_of_questions.set(user_question_amount)
 
         # Defining statistics list(s) (inspired by "00_Compiled_Version_6.py")
         # quiz_statistics_list = [user_question_amount, user_question_amount]
@@ -152,10 +155,10 @@ class Quiz:
         self.correct_answer_count.set(0)
 
         # Initialise question variable
-        # self.question_number = IntVar()
+        # self.number_of_questions = IntVar()
 
         # Set question variable to question amount entered by user at start of the quiz
-        # self.question_number.set(self.user_question_amount)
+        # self.number_of_questions.set(self.user_question_amount)
 
         # GUI Setup
         self.quiz_box = Toplevel()
@@ -168,7 +171,7 @@ class Quiz:
         self.quiz_frame.grid()
 
         # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="1/{}".format(self.question_number), font="Arial 10 bold",
+        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format(self.question_number, number_of_questions), font="Arial 10 bold",
                                 padx=10, pady=2, justify=CENTER)
         self.question_number_label.grid(row=0)
 
@@ -313,8 +316,6 @@ class Quiz:
         self.answer_option_three_button.config(text=randomised_answers[2][1])
         self.answer_option_four_button.config(text=randomised_answers[3][1])
 
-
-
     # Answer Checking Function (with portions from the file "00_Compiled_Version_6.py".) 
     # ... [Reserch on passing variables between functions as follows: https://stackoverflow.com/questions/16043797/python-passing-variables-between-functions]
     # ... (Further information from "https://www.geekpills.com/operating-system/linux/python-passing-variable-between-functions")
@@ -334,6 +335,9 @@ class Quiz:
 
         # Sets correct answer as correct answer check variable for analysis
         correct_answer_check = self.correct_answer.get()
+
+        # Defines the total_questions_asked variable as the question_number variable
+        total_questions_asked = self.question_number.get()
         
         # Prints corrext answer check variable for testing
         # print(correct_answer_check)
@@ -343,12 +347,18 @@ class Quiz:
             
             # Adds one (1) to correct answer amount
             correct_answer_amount = correct_answer_amount+1
+            
+            # Adds one (1) to the total_questions_asked variable
+            total_questions_asked = total_questions_asked+1
 
             # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
             self.answer_label.configure(text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
         
         # If the chosen button variable is not equal to 0, tell the user that they are incorrect.
         else:
+
+            # Adds one (1) to the total_questions_asked variable
+            total_questions_asked = total_questions_asked+1
             
             # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
             self.answer_label.configure(text="Incorrect, you have entered {} correct answer(s)".format(correct_answer_amount), fg="red")
