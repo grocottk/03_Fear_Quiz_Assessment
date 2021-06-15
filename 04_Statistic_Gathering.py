@@ -79,9 +79,14 @@ class Start:
 
         # Sets initial varables, including background colour and error checking
         error_background = "pink"
+
+        # This defines the has_errors variable, and sets it as "no"
         has_errors = "no"
 
+        # Try the following
         try:
+
+            # The user_question_amount becomes an integer
             user_question_amount = int(user_question_amount)
 
             # If the question amount is less than 1, give an error message
@@ -93,22 +98,28 @@ class Start:
             elif user_question_amount > 113:
                 has_errors = "yes"
                 error_feedback = "Sorry, the highest number of questions that you can be asked is 113."
-            
+        
+        # If a value error is present, tell the user that they have an error
         except ValueError:
             has_errors = "yes"
             error_feedback = "Please enter a whole number between 1 and 113"
 
+        # If the entry has an error, tell the user
         if has_errors == "yes":
+
             # If errors are present, change the error area
             self.start_error_message_area.config(bg=error_background, text=error_feedback)
 
+        # If no errors are present, tell the user and continue
         else:
+            
             # If no errors are present, tell the user that their answer is valid
             self.start_error_message_area.config(bg="lime", text="This is a valid number of questions")
 
             # Set total questions to the question_amount variable
             self.question_amount.set(user_question_amount)
-
+    
+    # Defining the to_quiz function
     def to_quiz(self):
 
         # Gets question amount from entry box (from "00_Compiled_Version_6.py")
