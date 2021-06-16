@@ -29,7 +29,7 @@ class Start:
         self.start_frame = Frame(padx=10, pady=10)
         self.start_frame.grid()
         
-        # Defining question_amount_check variable
+        # Defining question_amount variable
         self.question_amount = IntVar()
         self.question_amount.set(0)
 
@@ -74,10 +74,10 @@ class Start:
     # ... and "12g_Assembled_Program.py")
     def check_question_amount(self):
         
-        # Get initial data
-        user_question_amount = self.number_entry_box.get()
+        # Get[s] initial data, and defines the question_amount_check variable as the number entry box entry
+        question_amount_check = self.number_entry_box.get()
 
-        # Sets initial varables, including background colour and error checking
+        # Sets initial variables, including background colour and error checking
         error_background = "pink"
 
         # This defines the has_errors variable, and sets it as "no"
@@ -87,15 +87,15 @@ class Start:
         try:
 
             # The user_question_amount becomes an integer
-            user_question_amount = int(user_question_amount)
+            question_amount_check = int(question_amount_check)
 
             # If the question amount is less than 1, give an error message
-            if user_question_amount < 1:
+            if question_amount_check < 1:
                 has_errors = "yes"
                 error_feedback = "Sorry, the lowest number of questions that you can be asked is 1."
 
             # If the question amount is more than 113, give an error message
-            elif user_question_amount > 113:
+            elif question_amount_check > 113:
                 has_errors = "yes"
                 error_feedback = "Sorry, the highest number of questions that you can be asked is 113."
         
@@ -117,46 +117,46 @@ class Start:
             self.start_error_message_area.config(bg="lime", text="This is a valid number of questions")
 
             # Set total questions to the question_amount variable
-            self.question_amount.set(user_question_amount)
+            self.question_amount.set(question_amount_check)
     
     # Defining the to_quiz function
     def to_quiz(self):
 
         # Gets question amount from entry box (from "00_Compiled_Version_6.py")
-        user_question_amount = self.number_entry_box.get()
+        question_amount = self.number_entry_box.get()
         
-        # Prints the user_question_amount for testing
-        print (user_question_amount)
+        # Prints the question_amount for testing
+        # print (question_amount)
 
         # Sends variables to Quiz segmnent
-        Quiz(self, user_question_amount)
+        Quiz(self, question_amount)
 
         # Hide start up window
         self.start_frame.destroy()
 
 # Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py") [This segment also takes inspiration from the file "00_Compiled_Version_6.py"]
 class Quiz:
-    def __init__(self, partner, user_question_amount):
+    def __init__(self, partner, question_amount):
 
-        # Converts the user_question_amount into a variable
-        user_question_amount = int(user_question_amount)
-
-        # Initialise the number of questions variable
-        self.number_of_questions = IntVar()
+        # Converts the question_amount_check into a variable
+        question_amount = int(question_amount)
 
         # Initialise the question number variable
         self.question_number = IntVar()
 
+        # Initialise the number of questions variable
+        self.number_of_questions = IntVar()
+
         # Sets the question number variable to the question amount stated in the start section (Resarch done includes the following:
         # https://www.google.com/search?q=.set+command+missing+1+value+in+python&rlz=1C1GCEV_enNZ951NZ952&oq=.set+command+missing+1+value+in+python&aqs=chrome..69i57.15571j0j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on,
         # https://stackoverflow.com/questions/38170566/python-typeerror-set-missing-1-required-positional-argument-value)
-        self.number_of_questions.set(user_question_amount)
+        self.number_of_questions.set(question_amount)
 
         # Defining statistics list(s) (inspired by "00_Compiled_Version_6.py")
-        # quiz_statistics_list = [user_question_amount, user_question_amount]
+        # quiz_statistics_list = [question_amount, question_amount]
 
-        # Prints the user_question_amount for testing
-        print (user_question_amount)
+        # Prints the question_amount for testing
+        # print (question_amount)
 
         # Defining correct_answer variable
         self.correct_answer = StringVar()
@@ -169,7 +169,7 @@ class Quiz:
         # self.number_of_questions = IntVar()
 
         # Set question variable to question amount entered by user at start of the quiz
-        # self.number_of_questions.set(self.user_question_amount)
+        # self.number_of_questions.set(self.question_amount_check)
 
         # GUI Setup
         self.quiz_box = Toplevel()
@@ -182,7 +182,7 @@ class Quiz:
         self.quiz_frame.grid()
 
         # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format(self.question_number, number_of_questions), font="Arial 10 bold",
+        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format("1", question_amount), font="Arial 10 bold",
                                 padx=10, pady=2, justify=CENTER)
         self.question_number_label.grid(row=0)
 
