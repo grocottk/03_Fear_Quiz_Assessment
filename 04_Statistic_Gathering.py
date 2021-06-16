@@ -144,13 +144,22 @@ class Quiz:
         # Initialise the question number variable
         self.question_number = IntVar()
 
+        # Sets the question number to one (1) at the beginning of the quiz
+        self.question_number.set(1)
+
+        # The total questions asked
+        total_questions_asked_label = self.question_number
+
+        # The total asked questions label becomes an integer
+        total_questions_asked_label = int(total_questions_asked_label)
+
         # Initialise the number of questions variable
-        self.number_of_questions = IntVar()
+        # self.number_of_questions = IntVar()
 
         # Sets the question number variable to the question amount stated in the start section (Resarch done includes the following:
         # https://www.google.com/search?q=.set+command+missing+1+value+in+python&rlz=1C1GCEV_enNZ951NZ952&oq=.set+command+missing+1+value+in+python&aqs=chrome..69i57.15571j0j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on,
         # https://stackoverflow.com/questions/38170566/python-typeerror-set-missing-1-required-positional-argument-value)
-        self.number_of_questions.set(question_amount)
+        # self.number_of_questions.set(question_amount)
 
         # Defining statistics list(s) (inspired by "00_Compiled_Version_6.py")
         # quiz_statistics_list = [question_amount, question_amount]
@@ -163,6 +172,8 @@ class Quiz:
 
         # Defining correct_answer_count variable
         self.correct_answer_count = IntVar()
+
+        # Sets the number of correct answers answered to zero (0)
         self.correct_answer_count.set(0)
 
         # Initialise question variable
@@ -182,7 +193,7 @@ class Quiz:
         self.quiz_frame.grid()
 
         # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format("1", question_amount), font="Arial 10 bold",
+        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format(total_questions_asked_label, question_amount), font="Arial 10 bold",
                                 padx=10, pady=2, justify=CENTER)
         self.question_number_label.grid(row=0)
 
@@ -373,6 +384,9 @@ class Quiz:
             
             # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
             self.answer_label.configure(text="Incorrect, you have entered {} correct answer(s)".format(correct_answer_amount), fg="red")
+
+        # Sets the question number to the total questions asked
+        self.question_number.set(total_questions_asked)
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
