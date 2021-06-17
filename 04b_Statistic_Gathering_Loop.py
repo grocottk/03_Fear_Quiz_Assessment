@@ -230,22 +230,22 @@ class Quiz:
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_one_button['text'], question_amount))
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_one_button['text']))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_two_button['text'], question_amount))
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_two_button['text']))
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_three_button['text'], question_amount))
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_three_button['text']))
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_four_button['text'], question_amount))
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_four_button['text']))
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -261,7 +261,7 @@ class Quiz:
         # Next Question Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"] (Adapted from above button template) [Partially inspired by "00_Compiled_Version_6.py".]
         # ... (Inspiration for button from: "https://stackoverflow.com/questions/57235726/how-can-i-assign-a-function-to-a-variable-without-running-it".)
         # ... [From the file "00_Compiled_Version_6.py".] (Inspired by the file "00_Compiled_Version_6.py")
-        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Game", bg="green", command=self.question_randomising)
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Game", bg="green", command=self.question_randomising(question_amount))
         self.next_question_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Label (Row 6)
@@ -283,7 +283,21 @@ class Quiz:
         self.help_button.grid(row=0, column=1, padx=10)
 
     # Question randomising function
-    def question_randomising(self):
+    def question_randomising(self, question_amount):
+
+        # Defines the total_questions_asked variable as the question_number variable
+        total_questions_asked = self.question_number.get()
+
+        # Prints question aomount and the total questions asked
+        print(question_amount)
+        print(total_questions_asked)
+
+        # Configures answer box(es) and updates variables
+        # Adds one (1) to the total_questions_asked variable
+        # total_questions_asked = total_questions_asked + 1
+
+        # Sets question number labels to relevant numbers
+        # self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount))
 
         # Disables Next Question Button (inspired by parts of the "question_randomising" function in this file)
         # self.next_question_button.config(state=DISABLED)
@@ -320,7 +334,7 @@ class Quiz:
         questions_sample = random.sample(df, 4)
 
         # Prints questions_sample (for testing purposes)
-        print (questions_sample)
+        # print (questions_sample)
 
         # Defines correct question and answer from list
         correct_list = questions_sample[0]
@@ -338,11 +352,11 @@ class Quiz:
         # Enables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
         # self.check_answer_button.config(state=NORMAL)
 
-        # Configuring button text
-        self.answer_option_one_button.config(text=randomised_answers[0][1])
-        self.answer_option_two_button.config(text=randomised_answers[1][1])
-        self.answer_option_three_button.config(text=randomised_answers[2][1])
-        self.answer_option_four_button.config(text=randomised_answers[3][1])
+        # Configuring button text, and enabling buttons for answering
+        self.answer_option_one_button.config(text=randomised_answers[0][1], state=NORMAL)
+        self.answer_option_two_button.config(text=randomised_answers[1][1], state=NORMAL)
+        self.answer_option_three_button.config(text=randomised_answers[2][1], state=NORMAL)
+        self.answer_option_four_button.config(text=randomised_answers[3][1], state=NORMAL)
 
         # Enables Next Question Button (inspired by parts of the "question_randomising" function in this file)
         # ... [Inspired by the disabling code above]
@@ -357,7 +371,7 @@ class Quiz:
     # Answer checking function [From "03b_Random_Selection_Version_2_Recovered.py".] (Function formatting inspired by "12g_Assembled_Program.py")
     # ... [This is a general research link that may inspire the program: "https://zetcode.com/python/lambda/".]
     # ... (This respource aims to educate on command(s): "https://www.google.com/search?q=pythin+get+command&rlz=1C1GCEV_enNZ951NZ952&oq=pythin+get+command&aqs=chrome..69i57j0i13l9.6352j1j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on".)
-    def check_answer(self, chosen_button, question_amount):
+    def check_answer(self, chosen_button):
 
         # Prints chosen button variable
         # print (chosen_button)
@@ -367,9 +381,6 @@ class Quiz:
 
         # Sets correct answer as correct answer check variable for analysis
         correct_answer_check = self.correct_answer.get()
-
-        # Defines the total_questions_asked variable as the question_number variable
-        total_questions_asked = self.question_number.get()
         
         # Prints corrext answer check variable for testing
         # print(correct_answer_check)
@@ -392,19 +403,18 @@ class Quiz:
         # Sets the question number to the total questions asked
         # self.question_number.set(total_questions_asked)
 
-        # Configures answer box(es) and updates variables
-        # Adds one (1) to the total_questions_asked variable
-        total_questions_asked = total_questions_asked+1
-
-        # Sets question number labels to relevant numbers
-        self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount))
-
         # Prints correct answer amount for testing purposes
         print(correct_answer_amount)
 
         # Sets the wider correct answer count variable to the correct answer amount variable
         # ... (inspired by a part of this program's function known as "check_question_amount")
         self.correct_answer_count.set(correct_answer_amount)
+
+        # Disables answer buttons
+        self.answer_option_one_button.config(state=DISABLED)
+        self.answer_option_two_button.config(state=DISABLED)
+        self.answer_option_three_button.config(state=DISABLED)
+        self.answer_option_four_button.config(state=DISABLED)
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
