@@ -145,13 +145,13 @@ class Quiz:
         self.question_number = IntVar()
 
         # Sets the question number to one (1) at the beginning of the quiz
-        self.question_number.set(1)
+        self.question_number.set(0)
 
         # The total questions asked
-        total_questions_asked_label = self.question_number
+        # total_questions_asked_label = self.question_number
 
         # The total asked questions label becomes an integer
-        total_questions_asked_label = int(total_questions_asked_label)
+        # total_questions_asked_label = int(total_questions_asked_label)
 
         # Initialise the number of questions variable
         # self.number_of_questions = IntVar()
@@ -193,8 +193,8 @@ class Quiz:
         self.quiz_frame.grid()
 
         # Question number label (Row 0)
-        self.question_number_label = Label(self.quiz_frame, text="{}/{}".format(total_questions_asked_label, question_amount), font="Arial 10 bold",
-                                padx=10, pady=2, justify=CENTER)
+        self.question_number_label = Label(self.quiz_frame, font="Arial 10 bold", padx=10, pady=2, justify=CENTER,
+                                           text="0/{}".format(question_amount))
         self.question_number_label.grid(row=0)
 
         # Question text [Part 1] (Row 1)
@@ -227,22 +227,22 @@ class Quiz:
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_one_button['text']))
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_one_button['text'], question_amount))
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_two_button['text']))
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_two_button['text'], question_amount))
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_three_button['text']))
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_three_button['text'], question_amount))
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_four_button['text']))
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="", command=lambda: self.check_answer(self.answer_option_four_button['text'], question_amount))
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -347,7 +347,7 @@ class Quiz:
     # Answer checking function [From "03b_Random_Selection_Version_2_Recovered.py".] (Function formatting inspired by "12g_Assembled_Program.py")
     # ... [This is a general research link that may inspire the program: "https://zetcode.com/python/lambda/".]
     # ... (This respource aims to educate on command(s): "https://www.google.com/search?q=pythin+get+command&rlz=1C1GCEV_enNZ951NZ952&oq=pythin+get+command&aqs=chrome..69i57j0i13l9.6352j1j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on".)
-    def check_answer(self, chosen_button):
+    def check_answer(self, chosen_button, question_amount):
 
         # Prints chosen button variable
         # print (chosen_button)
@@ -369,24 +369,32 @@ class Quiz:
             
             # Adds one (1) to correct answer amount
             correct_answer_amount = correct_answer_amount+1
-            
-            # Adds one (1) to the total_questions_asked variable
-            total_questions_asked = total_questions_asked+1
 
             # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
             self.answer_label.configure(text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
         
         # If the chosen button variable is not equal to 0, tell the user that they are incorrect.
         else:
-
-            # Adds one (1) to the total_questions_asked variable
-            total_questions_asked = total_questions_asked+1
             
             # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
             self.answer_label.configure(text="Incorrect, you have entered {} correct answer(s)".format(correct_answer_amount), fg="red")
 
         # Sets the question number to the total questions asked
-        self.question_number.set(total_questions_asked)
+        # self.question_number.set(total_questions_asked)
+
+        # Configures answer box(es) and updates variables
+        # Adds one (1) to the total_questions_asked variable
+        total_questions_asked = total_questions_asked+1
+
+        # Sets question number labels to relevant numbers
+        self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount))
+
+        # Prints correct answer amount for testing purposes
+        print(correct_answer_amount)
+
+        # Sets the wider correct answer count variable to the correct answer amount variable
+        # ... (inspired by a part of this program's function known as "check_question_amount")
+        self.correct_answer_count.set(correct_answer_amount)
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
