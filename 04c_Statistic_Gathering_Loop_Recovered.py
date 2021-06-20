@@ -238,28 +238,28 @@ class Quiz:
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
                                                command=lambda: self.check_answer(self.answer_option_one_button['text'],
-                                                                                 question_amount))
+                                                                                 question_amount), state=DISABLED)
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
                                                command=lambda: self.check_answer(self.answer_option_two_button['text'],
-                                                                                 question_amount))
+                                                                                 question_amount), state=DISABLED)
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
                                                  command=lambda: self.check_answer(
-                                                     self.answer_option_three_button['text'], question_amount))
+                                                     self.answer_option_three_button['text'], question_amount), state=DISABLED)
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
                                                 command=lambda: self.check_answer(
-                                                    self.answer_option_four_button['text'], question_amount))
+                                                    self.answer_option_four_button['text'], question_amount), state=DISABLED)
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -310,6 +310,23 @@ class Quiz:
 
         # Disables Next Question button until answer is checked (from "00_Compiled_Version_6.py")
         # self.next_question_button.config(state=DISABLED)
+
+        # Sets up question adding variable (inspired by the following links: https://stackoverflow.com/questions/19719577/add-tkinters-intvar-to-an-integer,
+        # ... https://www.google.com/search?q=how+to+add+to+an+IntVar&rlz=1C1GCEV_enNZ951NZ952&oq=how+to+add+to+an+IntVar&aqs=chrome..69i57.9264j0j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on)
+        question_adding = self.question_number.get()
+
+        # Question adding to integer definition
+        question_adding = int(question_adding)
+
+        # Adding one (1) to the question adding variable [inspired by the following links: https://www.google.com/search?q=how+to+add+to+integer+variables+in+python&rlz=1C1GCEV_enNZ951NZ952&ei=t7TPYKvbCpKU4-EPzdGYuAI&oq=how+to+add+to+integer+variables+in+python&gs_lcp=Cgdnd3Mtd2l6EAMyBggAEBYQHjIGCAAQFhAeOgcIABBHELADOgQIABBDOgQILhBDOgUIABCRAjoICAAQsQMQgwE6BQgAELEDOg4ILhCxAxCDARDHARCjAjoLCC4QsQMQxwEQowI6AggAOgUILhCxAzoLCC4QsQMQxwEQrwE6CAguEMcBEK8BOgsILhDHARCvARCTAjoCCC46CgguEMcBEK8BEAo6BAgAEA06BggAEA0QHjoICCEQFhAdEB5Q9oYKWJnSCmDO1wpoCXACeACAAfMBiAGzPpIBBjAuNDUuMZgBAKABAaoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz&ved=0ahUKEwjrkoC6lafxAhUSyjgGHc0oBicQ4dUDCBE&uact=5&safe=active&ssui=on,
+        # ... https://stackoverflow.com/questions/18893445/adding-1-to-a-variable-inside-a-function/18893522]
+        question_adding = question_adding + 1
+
+        # Sets question_number variable to already defined question_number variable
+        self.question_number.set(question_adding)
+
+        # Adds 1 to question_number variable
+        # self.question_number.set(self.question_number + 1)
 
         # Changes Begin Quiz button to Next Question button
         self.next_question_button.config(text="Next Question")
@@ -421,15 +438,14 @@ class Quiz:
         # ... (inspired by a part of this program's function known as "check_question_amount")
         self.correct_answer_count.set(correct_answer_amount)
 
+        # Disables Check Answer button after question is asked (from "00_Compiled_Version_6.py") [Inspired by above "question_randomising" function]
+        # self.check_answer_button.config(state=DISABLED)
+
         # Disables answer buttons (from "04b_Statistic_Gathering_Loop.py")
         self.answer_option_one_button.config(state=DISABLED)
         self.answer_option_two_button.config(state=DISABLED)
         self.answer_option_three_button.config(state=DISABLED)
         self.answer_option_four_button.config(state=DISABLED)
-
-        # Configures answer box(es) and updates variables
-        # Adds one (1) to the total_questions_asked variable
-        total_questions_asked = total_questions_asked + 1
 
         # Sets question number labels to relevant numbers
         self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount))
