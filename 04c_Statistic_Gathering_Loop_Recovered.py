@@ -371,15 +371,13 @@ class Quiz:
         randomised_answers = random.sample(questions_sample, 4)
 
         # Enables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
-        # self.check_answer_button.config(state=NORMAL)
+        self.next_question_button.config(state=DISABLED)
 
         # Configuring button text, and enabling buttons for answering (from "04b_Statistic_Gathering_Loop.py")
         self.answer_option_one_button.config(text=randomised_answers[0][1], state=NORMAL)
         self.answer_option_two_button.config(text=randomised_answers[1][1], state=NORMAL)
         self.answer_option_three_button.config(text=randomised_answers[2][1], state=NORMAL)
         self.answer_option_four_button.config(text=randomised_answers[3][1], state=NORMAL)
-
-
 
         # Enables Next Question Button (inspired by parts of the "question_randomising" function in this file)
         # ... [Inspired by the disabling code above]
@@ -439,7 +437,7 @@ class Quiz:
         self.correct_answer_count.set(correct_answer_amount)
 
         # Disables Check Answer button after question is asked (from "00_Compiled_Version_6.py") [Inspired by above "question_randomising" function]
-        # self.check_answer_button.config(state=DISABLED)
+        self.next_question_button.config(state=NORMAL)
 
         # Disables answer buttons (from "04b_Statistic_Gathering_Loop.py")
         self.answer_option_one_button.config(state=DISABLED)
@@ -449,6 +447,15 @@ class Quiz:
 
         # Sets question number labels to relevant numbers
         self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount))
+
+        if total_questions_asked == question_amount:
+
+            self.answer_label.config(text="You have finished the quiz", fg="black")
+            self.next_question_button.config(state=DISABLED)
+
+        else:
+
+            print()
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
