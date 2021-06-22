@@ -370,7 +370,7 @@ class Quiz:
         # Rearranges list into randomised order (somewhat related to the following link: https://pynative.com/python-random-sample/):
         randomised_answers = random.sample(questions_sample, 4)
 
-        # Enables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
+        # Disables Check Answer button until first question is asked (from "00_Compiled_Version_6.py")
         self.next_question_button.config(state=DISABLED)
 
         # Configuring button text, and enabling buttons for answering (from "04b_Statistic_Gathering_Loop.py")
@@ -409,22 +409,48 @@ class Quiz:
         # Prints correct answer check variable for testing
         # print(correct_answer_check)
 
-        # If the chosen button variable is equal to 0, tell the user that they are correct.
-        if chosen_button == correct_answer_check:
+        # If the total questions asked variable is greater than or equal to the question amount variable,
+        # ... update the answer label, and end the game.
+        if total_questions_asked >= question_amount:
 
-            # Adds one (1) to correct answer amount
-            correct_answer_amount = correct_answer_amount + 1
+            # Tells the user that they have finished the quiz once all questions have been asked
+            self.answer_label.config(
+                text="You have finished the quiz with {} of {} questions correct".format(correct_answer_amount,
+                                                                                         total_questions_asked),
+                fg="black")
 
-            # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
-            self.answer_label.configure(
-                text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
+            # Disables the next question button if the designated number of questions have been asked
+            # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
+            # ... in future versions)
+            self.next_question_button.configure(text="View Statistics", bg="orange")
 
-        # If the chosen button variable is not equal to 0, tell the user that they are incorrect.
+            # Disables the answer buttons (inspired by "04b_Statistic_Gathering_Loop.py"
+            # ... and other portions of this function)
+            self.answer_option_one_button.config(state=DISABLED)
+            self.answer_option_two_button.config(state=DISABLED)
+            self.answer_option_three_button.config(state=DISABLED)
+            self.answer_option_four_button.config(state=DISABLED)
+
+        # If the total questions asked is not the same as the question amount, allow the user to continue,
+        # ... checking to see if their answer is correct
         else:
 
-            # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
-            self.answer_label.configure(
-                text="Incorrect, you have entered {} correct answer(s)".format(correct_answer_amount), fg="red")
+            # If the chosen button variable is equal to 0, tell the user that they are correct.
+            if chosen_button == correct_answer_check:
+
+                # Adds one (1) to correct answer amount
+                correct_answer_amount = correct_answer_amount + 1
+
+                # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
+                self.answer_label.configure(
+                    text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
+
+            # If the chosen button variable is not equal to 0, tell the user that they are incorrect.
+            else:
+
+                # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
+                self.answer_label.configure(
+                    text="Incorrect, you have entered {} correct answer(s)".format(correct_answer_amount), fg="red")
 
         # Sets the question number to the total questions asked
         # self.question_number.set(total_questions_asked)
@@ -436,7 +462,7 @@ class Quiz:
         # ... (inspired by a part of this program's function known as "check_question_amount")
         self.correct_answer_count.set(correct_answer_amount)
 
-        # Disables Check Answer button after question is asked (from "00_Compiled_Version_6.py") [Inspired by above "question_randomising" function]
+        # Enables Check Answer button after question is asked (from "00_Compiled_Version_6.py") [Inspired by above "question_randomising" function]
         self.next_question_button.config(state=NORMAL)
 
         # Disables answer buttons (from "04b_Statistic_Gathering_Loop.py")
@@ -447,15 +473,6 @@ class Quiz:
 
         # Sets question number labels to relevant numbers
         self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount))
-
-        if total_questions_asked == question_amount:
-
-            self.answer_label.config(text="You have finished the quiz", fg="black")
-            self.next_question_button.config(state=DISABLED)
-
-        else:
-
-            print()
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
