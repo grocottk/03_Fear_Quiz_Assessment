@@ -358,7 +358,7 @@ class Quiz:
         questions_sample = random.sample(df, 4)
 
         # Prints questions_sample (for testing purposes)
-        print(questions_sample)
+        # print(questions_sample)
 
         # Defines correct question and answer from list
         correct_list = questions_sample[0]
@@ -459,7 +459,7 @@ class Quiz:
         # self.question_number.set(total_questions_asked)
 
         # Prints correct answer amount for testing purposes
-        print(correct_answer_amount)
+        # print(correct_answer_amount)
 
         # Sets the wider correct answer count variable to the correct answer amount variable
         # ... (inspired by a part of this program's function known as "check_question_amount")
@@ -501,11 +501,43 @@ class Statistics:
     def __init__(self, partner):
 
         # GUI Setup (from above class)
-        self.statistics = Toplevel()
+        self.statistics_box = Toplevel()
 
-        # Statistics Page Title (inspired by above classes
-        self.statistics_label = Label(self.statistics, text="Statistics")
-        self.statistics_label.grid(row=0)
+        # Statistics Page Title (Row 0) [inspired by above classes]
+        self.statistics_title_label = Label(self.statistics_box, font="Arial 20 bold", text="Quiz Statistics")
+        self.statistics_title_label.grid(row=0, padx=20, pady=10)
+
+        # Total questions asked label (Row 1) [Inspired by above label(s) in this project]
+        self.total_questions_asked = Label(self.statistics_box, text="Total questions asked: {}".format("12"))
+        self.total_questions_asked.grid(row=1)
+
+        # Number of correct answers label (Row 2) [Inspired by above label(s) in this project]
+        self.correct_answers_number_label = Label(self.statistics_box, text="Correct answers: {}".format("12"))
+        self.correct_answers_number_label.grid(row=2)
+
+        # Number of incorrect answers label (Row 3) [Inspired by above label(s) in this project]
+        self.incorrect_answers_number_label = Label(self.statistics_box, text="Incorrect answers: {}".format("12"))
+        self.incorrect_answers_number_label.grid(row=3)
+
+        # Correct answers ratio label (Row 4) [Inspired by above label(s) in this project]
+        self.correct_answers_ratio_label = Label(self.statistics_box,
+                                                 text="Correct answers ratio (correct answers/total answers): {}/{}"
+                                                 .format("12","12"))
+        self.correct_answers_ratio_label.grid(row=4)
+
+        # Correct answers percentage label (Row 5) [Inspired by above label(s) in this project]
+        self.correct_answers_percentage_label = Label(self.statistics_box,
+                                                      text="{}% of the answers that you have given are correct"
+                                                      .format("100"))
+        self.correct_answers_percentage_label.grid(row=5)
+
+        # Statistics buttons frame (Row 6) [This has been inspired by the "quiz_bottom_buttons_frame"]
+        # ... {[inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"] (From "01_Start_GUI.py")}
+        self.statistics_buttons_frame = Frame(self.statistics_frame)
+        self.statistics_buttons_frame.grid(row=6)
+
+        # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
+        # self.statistics_dismiss_button = Button(self.statistics_frame)
 
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":
