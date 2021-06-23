@@ -142,6 +142,9 @@ class Start:
         # Hide start up window
         self.start_frame.destroy()
 
+        # Destroys start buttons frame
+        self.start_buttons_frame.destroy()
+
 
 # Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py") [This segment also takes inspiration from the file "00_Compiled_Version_6.py"]
 class Quiz:
@@ -489,8 +492,8 @@ class Quiz:
         # Calls Statistics window
         Statistics(self)
 
-        # Destroys quiz window
-        # Quiz.destroy()
+        # Destroys quiz window (inspired by the "to_quiz" function)
+        self.quiz_box.destroy()
 
 
 # Statistics Class (setup  of class inspired by above classes)
