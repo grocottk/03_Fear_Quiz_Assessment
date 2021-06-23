@@ -508,36 +508,52 @@ class Statistics:
         self.statistics_title_label.grid(row=0, padx=20, pady=10)
 
         # Total questions asked label (Row 1) [Inspired by above label(s) in this project]
-        self.total_questions_asked = Label(self.statistics_box, text="Total questions asked: {}".format("12"))
+        # ... (justify command inspired by "start_instructions")
+        self.total_questions_asked = Label(self.statistics_box, text="Total questions asked: {}".format("12"),
+                                           justify=LEFT)
         self.total_questions_asked.grid(row=1)
 
         # Number of correct answers label (Row 2) [Inspired by above label(s) in this project]
-        self.correct_answers_number_label = Label(self.statistics_box, text="Correct answers: {}".format("12"))
+        # ... (justify command inspired by "start_instructions")
+        self.correct_answers_number_label = Label(self.statistics_box, text="Correct answers: {}".format("12"),
+                                                  justify=LEFT)
         self.correct_answers_number_label.grid(row=2)
 
         # Number of incorrect answers label (Row 3) [Inspired by above label(s) in this project]
-        self.incorrect_answers_number_label = Label(self.statistics_box, text="Incorrect answers: {}".format("12"))
+        # ... (justify command inspired by "start_instructions")
+        self.incorrect_answers_number_label = Label(self.statistics_box, text="Incorrect answers: {}".format("12"),
+                                                    justify=LEFT)
         self.incorrect_answers_number_label.grid(row=3)
 
         # Correct answers ratio label (Row 4) [Inspired by above label(s) in this project]
+        # ... (justify command inspired by "start_instructions")
         self.correct_answers_ratio_label = Label(self.statistics_box,
                                                  text="Correct answers ratio (correct answers/total answers): {}/{}"
-                                                 .format("12","12"))
+                                                 .format("12","12"), justify=LEFT)
         self.correct_answers_ratio_label.grid(row=4)
 
         # Correct answers percentage label (Row 5) [Inspired by above label(s) in this project]
         self.correct_answers_percentage_label = Label(self.statistics_box,
                                                       text="{}% of the answers that you have given are correct"
-                                                      .format("100"))
+                                                      .format("100"), font="Arial 10 bold", padx=5, pady=5)
         self.correct_answers_percentage_label.grid(row=5)
 
         # Statistics buttons frame (Row 6) [This has been inspired by the "quiz_bottom_buttons_frame"]
         # ... {[inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"] (From "01_Start_GUI.py")}
-        self.statistics_buttons_frame = Frame(self.statistics_frame)
-        self.statistics_buttons_frame.grid(row=6)
+        self.statistics_buttons_frame = Frame(self.statistics_box)
+        self.statistics_buttons_frame.grid(row=6, pady=20)
 
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
-        # self.statistics_dismiss_button = Button(self.statistics_frame)
+        # ... (padding ispired by the "quit_button")
+        self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Dismiss", bg="red", pady=5,
+                                                padx=10)
+        self.statistics_dismiss_button.grid(row=0, column=0, padx=10)
+
+        # Export Button (Row 0, Column 1) [Inspired by "statistics_buttons_frame" formatting]
+        # ... (inspired by above "statistics_dismiss_button") [padding inspired by the "quit_button"]
+        self.statistics_export_button = Button(self.statistics_buttons_frame, text="Export", bg="blue", pady=5,
+                                               padx=10)
+        self.statistics_export_button.grid(row=0, column=1, padx=10)
 
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":
