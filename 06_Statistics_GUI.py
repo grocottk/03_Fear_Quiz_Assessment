@@ -425,7 +425,9 @@ class Quiz:
             # Disables the next question button if the designated number of questions have been asked
             # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
             # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
-            self.next_question_button.configure(text="View Statistics", bg="orange", command=self.to_statistics)
+            # ... (Inspired by above question buttons)
+            self.next_question_button.configure(text="View Statistics", bg="orange",
+                                                command=lambda: self.to_statistics(question_amount, correct_answer_amount))
 
             # Disables the answer buttons (inspired by "04b_Statistic_Gathering_Loop.py"
             # ... and other portions of this function)
@@ -487,10 +489,10 @@ class Quiz:
         root.destroy()
 
     # Calls statistics window (inspired by "00_Compiled_Version_6.py")
-    def to_statistics(self):
+    def to_statistics(self, question_amount, correct_answer_amount):
 
-        # Calls Statistics window
-        Statistics(self)
+        # Calls Statistics window (parts originally from above code segment)
+        Statistics(self, question_amount, correct_answer_amount)
 
         # Destroys quiz window (inspired by the "to_quiz" function)
         self.quiz_box.destroy()
@@ -498,7 +500,10 @@ class Quiz:
 
 # Statistics Class (setup  of class inspired by above classes)
 class Statistics:
-    def __init__(self, partner):
+    def __init__(self, partner, question_amount, correct_answer_amount):
+
+        # Gets question number total
+        # question_number_total = question_amount
 
         # GUI Setup (from above class)
         self.statistics_box = Toplevel()
@@ -509,19 +514,21 @@ class Statistics:
 
         # Total questions asked label (Row 1) [Inspired by above label(s) in this project]
         # ... (justify command inspired by "start_instructions")
-        self.total_questions_asked = Label(self.statistics_box, text="Total questions asked: {}".format("12"),
+        self.total_questions_asked = Label(self.statistics_box, text="Total questions asked: {}"
+                                           .format(question_amount),
                                            justify=LEFT)
         self.total_questions_asked.grid(row=1)
 
         # Number of correct answers label (Row 2) [Inspired by above label(s) in this project]
         # ... (justify command inspired by "start_instructions")
-        self.correct_answers_number_label = Label(self.statistics_box, text="Correct answers: {}".format("12"),
+        self.correct_answers_number_label = Label(self.statistics_box, text="Correct answers: {}"
+                                                  .format(correct_answer_amount),
                                                   justify=LEFT)
         self.correct_answers_number_label.grid(row=2)
 
         # Number of incorrect answers label (Row 3) [Inspired by above label(s) in this project]
         # ... (justify command inspired by "start_instructions")
-        self.incorrect_answers_number_label = Label(self.statistics_box, text="Incorrect answers: {}".format("12"),
+        self.incorrect_answers_number_label = Label(self.statistics_box, text="Incorrect answers: {}".format(question_amount - correct_answer_amount),
                                                     justify=LEFT)
         self.incorrect_answers_number_label.grid(row=3)
 
@@ -529,13 +536,13 @@ class Statistics:
         # ... (justify command inspired by "start_instructions")
         self.correct_answers_ratio_label = Label(self.statistics_box,
                                                  text="Correct answers ratio (correct answers/total answers): {}/{}"
-                                                 .format("12","12"), justify=LEFT)
+                                                 .format(correct_answer_amount, question_amount), justify=LEFT)
         self.correct_answers_ratio_label.grid(row=4)
 
         # Correct answers percentage label (Row 5) [Inspired by above label(s) in this project]
         self.correct_answers_percentage_label = Label(self.statistics_box,
-                                                      text="{}% of the answers that you have given are correct"
-                                                      .format("100"), font="Arial 10 bold", padx=5, pady=5)
+                                                      text="{:.0f}% of the answers that you have given are correct"
+                                                      .format(correct_answer_amount / question_amount * 100), font="Arial 10 bold", padx=5, pady=5)
         self.correct_answers_percentage_label.grid(row=5)
 
         # Statistics buttons frame (Row 6) [This has been inspired by the "quiz_bottom_buttons_frame"]
@@ -544,9 +551,9 @@ class Statistics:
         self.statistics_buttons_frame.grid(row=6, pady=20)
 
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
-        # ... (padding ispired by the "quit_button")
-        self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Dismiss", bg="red", pady=5,
-                                                padx=10)
+        # ... (padding ispired by the "quit_button") [Inspired by "00_Compiled_Version_6.py"]
+        self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Quit", bg="red", pady=5,
+                                                padx=10, command=self.statistics_close)
         self.statistics_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export Button (Row 0, Column 1) [Inspired by "statistics_buttons_frame" formatting]
@@ -554,6 +561,15 @@ class Statistics:
         self.statistics_export_button = Button(self.statistics_buttons_frame, text="Export", bg="blue", pady=5,
                                                padx=10)
         self.statistics_export_button.grid(row=0, column=1, padx=10)
+
+    # Statistics closing function (inspired by "00_Compiled_Version_6.py")
+    def statistics_close(self):
+
+        # Destroys statistics box
+        self.statistics_box.destroy()
+
+        # Destroys root
+        root.destroy()
 
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":
