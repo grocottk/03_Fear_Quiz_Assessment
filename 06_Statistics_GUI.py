@@ -544,15 +544,22 @@ class Statistics:
 
         # Correct answers percentage label (Row 5) [Inspired by above label(s) in this project]
         self.correct_answers_percentage_label = Label(self.statistics_frame,
-                                                      text="{:.0f}% of the answers that you have given are correct"
+                                                      text="{:.2f}%"
                                                       .format(correct_answer_amount / question_amount * 100),
-                                                      font="Arial 10 bold", padx=5, pady=5)
+                                                      font="Arial 60 bold", padx=5, pady=2)
         self.correct_answers_percentage_label.grid(row=5)
 
-        # Statistics buttons frame (Row 6) [This has been inspired by the "quiz_bottom_buttons_frame"]
+        # Correct answers percentage text label (Row 6) [Inspired by above label(s) in this project]
+        # ... (structure inspired by above "correct_answers_percentage_label")
+        self.correct_answers_percentage_text_label = Label(self.statistics_frame,
+                                                           text="of the answers that you have given are correct",
+                                                           font="Arial 10 bold", padx=5)
+        self.correct_answers_percentage_text_label.grid(row=6)
+
+        # Statistics buttons frame (Row 7) [This has been inspired by the "quiz_bottom_buttons_frame"]
         # ... {[inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"] (From "01_Start_GUI.py")}
         self.statistics_buttons_frame = Frame(self.statistics_frame)
-        self.statistics_buttons_frame.grid(row=6, pady=20)
+        self.statistics_buttons_frame.grid(row=7, pady=20)
 
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
         # ... (padding ispired by the "quit_button") [Inspired by "00_Compiled_Version_6.py"]
