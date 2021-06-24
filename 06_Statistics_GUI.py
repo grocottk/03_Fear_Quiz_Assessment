@@ -508,46 +508,50 @@ class Statistics:
         # GUI Setup (from above class)
         self.statistics_box = Toplevel()
 
+        # Creating the statistics frame (inspired by the "Quiz" segment) [frame name(s) replaced using replace function]
+        self.statistics_frame = Frame(self.statistics_box, padx=10, pady=10)
+        self.statistics_frame.grid()
+
         # Statistics Page Title (Row 0) [inspired by above classes]
-        self.statistics_title_label = Label(self.statistics_box, font="Arial 20 bold", text="Quiz Statistics")
+        self.statistics_title_label = Label(self.statistics_frame, font="Arial 20 bold", text="Quiz Statistics")
         self.statistics_title_label.grid(row=0, padx=20, pady=10)
 
         # Total questions asked label (Row 1) [Inspired by above label(s) in this project]
         # ... (justify command inspired by "start_instructions")
-        self.total_questions_asked = Label(self.statistics_box, text="Total questions asked: {}"
-                                           .format(question_amount),
-                                           justify=LEFT)
+        self.total_questions_asked = Label(self.statistics_frame, text="Total questions asked: {}"
+                                           .format(question_amount), justify=LEFT)
         self.total_questions_asked.grid(row=1)
 
         # Number of correct answers label (Row 2) [Inspired by above label(s) in this project]
         # ... (justify command inspired by "start_instructions")
-        self.correct_answers_number_label = Label(self.statistics_box, text="Correct answers: {}"
-                                                  .format(correct_answer_amount),
-                                                  justify=LEFT)
+        self.correct_answers_number_label = Label(self.statistics_frame, text="Correct answers: {}"
+                                                  .format(correct_answer_amount), justify=LEFT)
         self.correct_answers_number_label.grid(row=2)
 
         # Number of incorrect answers label (Row 3) [Inspired by above label(s) in this project]
         # ... (justify command inspired by "start_instructions")
-        self.incorrect_answers_number_label = Label(self.statistics_box, text="Incorrect answers: {}".format(question_amount - correct_answer_amount),
+        self.incorrect_answers_number_label = Label(self.statistics_frame, text="Incorrect answers: {}"
+                                                    .format(question_amount - correct_answer_amount),
                                                     justify=LEFT)
         self.incorrect_answers_number_label.grid(row=3)
 
         # Correct answers ratio label (Row 4) [Inspired by above label(s) in this project]
         # ... (justify command inspired by "start_instructions")
-        self.correct_answers_ratio_label = Label(self.statistics_box,
+        self.correct_answers_ratio_label = Label(self.statistics_frame,
                                                  text="Correct answers ratio (correct answers/total answers): {}/{}"
                                                  .format(correct_answer_amount, question_amount), justify=LEFT)
         self.correct_answers_ratio_label.grid(row=4)
 
         # Correct answers percentage label (Row 5) [Inspired by above label(s) in this project]
-        self.correct_answers_percentage_label = Label(self.statistics_box,
+        self.correct_answers_percentage_label = Label(self.statistics_frame,
                                                       text="{:.0f}% of the answers that you have given are correct"
-                                                      .format(correct_answer_amount / question_amount * 100), font="Arial 10 bold", padx=5, pady=5)
+                                                      .format(correct_answer_amount / question_amount * 100),
+                                                      font="Arial 10 bold", padx=5, pady=5)
         self.correct_answers_percentage_label.grid(row=5)
 
         # Statistics buttons frame (Row 6) [This has been inspired by the "quiz_bottom_buttons_frame"]
         # ... {[inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"] (From "01_Start_GUI.py")}
-        self.statistics_buttons_frame = Frame(self.statistics_box)
+        self.statistics_buttons_frame = Frame(self.statistics_frame)
         self.statistics_buttons_frame.grid(row=6, pady=20)
 
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
