@@ -315,7 +315,7 @@ class Quiz:
 
         # Help Button (Row 0, Column 1)
         self.help_button = Button(self.quiz_bottom_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10,
-                                  bg="orange")
+                                  bg="orange", command=self.to_help_from_quiz)
         self.help_button.grid(row=0, column=1, padx=10)
 
     # Question randomising function
@@ -429,7 +429,7 @@ class Quiz:
         # print(correct_answer_check)
 
         # If the total questions asked variable is greater than or equal to the question amount variable,
-        # ... update the answer label, and end the game.
+        # ... update the answer label, and end the quiz.
         if total_questions_asked >= question_amount:
 
             # Tells the user that they have finished the quiz once all questions have been asked
@@ -512,6 +512,22 @@ class Quiz:
 
         # Destroys quiz window (inspired by the "to_quiz" function)
         self.quiz_box.destroy()
+
+    # Creating a function that opens the help window from the quiz window (inspired by the "to_help_from_start"
+    # ... function) (inspired by the "to_quiz" function)
+    def to_help_from_quiz(self):
+
+        # Prints "functional" to test and see whether the function has been called and is functional
+        print("functional")
+
+        # Sends the user to the "Help" window
+        Help(self)
+
+        # Destroys quiz frame
+        self.quiz_frame.destroy()
+
+        # Destroys the frame of the start buttons (inspired by the "to_quiz" function)
+        # self.start_buttons_frame.destroy()
 
 
 # Statistics Class (setup  of class inspired by above classes)
@@ -623,7 +639,7 @@ class Help:
                     "       button to continue to the next question. The question counter at the top of the window will \n" \
                     "       allow you to have an idea of how far through the quiz you are." \
                     "\n\n" \
-                    "   3. After you have completed the quiz, you can quit the game by pressing the 'Quit' button. \n" \
+                    "   3. After you have completed the quiz, you can quit the quiz by pressing the 'Quit' button. \n" \
                     "       If you would like to view the statistics of your quiz, you can press the 'View Statistics' \n" \
                     "       button. While in this window, you can view a number of important statistics from your quiz. \n" \
                     "       After viewing these statistics, you can either press the 'Quit' button to quit the window(s), \n" \
