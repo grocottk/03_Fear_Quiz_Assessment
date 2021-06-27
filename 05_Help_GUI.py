@@ -59,7 +59,7 @@ class Start:
 
         # Help Button (Row 0, Column 0)
         self.help_button = Button(self.start_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10, bg="orange",
-                                  command=self.to_help_from_start(help_test=100))
+                                  command=self.to_help_from_start)
         self.help_button.grid(row=0, column=0, padx=5)
 
         # Check Questions Number Button (Row 0, Column 1)
@@ -147,16 +147,20 @@ class Start:
         self.start_buttons_frame.destroy()
 
     # Defining to_help function (inspired by the "to_quiz" function)
-    def to_help_from_start(self, help_test):
+    def to_help_from_start(self):
 
         # Prints "functional" to test and see whether the function has been called and is functional
         print("functional")
 
         # Sends the user to the health class window
-        Help(self, help_test)
+        Help(self)
 
         # Destroys start window
         self.start_frame.destroy()
+
+        # Destroys the frame of the start buttons (inspired by the "to_quiz" function)
+        self.start_buttons_frame.destroy()
+
 
 # Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py") [This segment also takes inspiration from the file "00_Compiled_Version_6.py"]
 class Quiz:
@@ -290,7 +294,7 @@ class Quiz:
         # Next Question Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"] (Adapted from above button template) [Partially inspired by "00_Compiled_Version_6.py".]
         # ... (Inspiration for button from: "https://stackoverflow.com/questions/57235726/how-can-i-assign-a-function-to-a-variable-without-running-it".)
         # ... [From the file "00_Compiled_Version_6.py".] (Inspired by the file "00_Compiled_Version_6.py")
-        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Game", bg="green",
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green",
                                            command=self.question_randomising)
         self.next_question_button.grid(row=0, column=0, pady=5, padx=10)
 
@@ -597,14 +601,37 @@ class Statistics:
 
 # Help Class (inspired by the "Statistics" class)
 class Help:
-    def __init__(self, partner, help_test):
+    def __init__(self, partner):
 
         # Prints the help_test variable for testing purposes
-        print(help_test)
+        # print(help_test)
 
-        # Defining help_text variable
-        help_text = "Welcome to the Fear Quiz, what follows is some basic help for this quiz, " \
-                    "which will hopefully allow you to complete the quiz."
+        # Defining help_text variable (some mentioned names inspired by the "Start" and "Quiz" segments)
+        help_text = "Welcome to the Fear Quiz, what follows is some basic help for this quiz, \n" \
+                    "which will hopefully allow you to complete it to the best of your ability." \
+                    "\n\n" \
+                    "   1. Please begin by entering the number of questions that you would like to be \n" \
+                    "       asked (between 1 and 113) into the provided text box in the start window. After this, \n" \
+                    "       please check your entry with the 'Check Questions Number', and then once the answer \n" \
+                    "       has been checked, you can press the start button." \
+                    "\n\n" \
+                    "   2. Once you are in in the quiz window itself, you can press the green 'Begin Quiz' button to \n" \
+                    "       begin the quiz. To answer the question shown, you can press the button that you would like to \n" \
+                    "       use as your answer. Once you have pressed this button, you will be told the result of your \n" \
+                    "       guess (as in, whether it is correct or incorrect), as well as the number of questions that \n" \
+                    "       you have correctly answered up until that point. After this, you can press the 'Next Question' \n" \
+                    "       button to continue to the next question. The question counter at the top of the window will \n" \
+                    "       allow you to have an idea of how far through the quiz you are." \
+                    "\n\n" \
+                    "   3. After you have completed the quiz, you can quit the game by pressing the 'Quit' button. \n" \
+                    "       If you would like to view the statistics of your quiz, you can press the 'View Statistics' \n" \
+                    "       button. While in this window, you can view a number of important statistics from your quiz. \n" \
+                    "       After viewing these statistics, you can either press the 'Quit' button to quit the window(s), \n" \
+                    "       or the 'Export' button to open the export window. Once in the export window, you will be able \n" \
+                    "       to export the data that you have generated throughout the quiz." \
+                    "\n\n" \
+                    "Once you dismiss this help window, the start window will open again, in order for you to \n" \
+                    "continue and/or begin your quiz. Good luck." \
 
         # Sets up GUI
         self.help_box = Toplevel()
@@ -619,8 +646,26 @@ class Help:
         self.help_heading_label.grid(row=0, padx=20, pady=10)
 
         # Help text label (Row 1) [inspired by the "help_heading_label"]
-        self.help_text_label = Label(self.help_frame, text=help_text)
+        self.help_text_label = Label(self.help_frame, text=help_text, justify=LEFT)
         self.help_text_label.grid(row=1)
+
+        # Help dismiss button (Row 2) [Inspired by the "Start" segment and some of the above formatting in the
+        # ... "help_text_label" as an example]
+        self.help_dismiss_button = Button(self.help_frame, text="Dismiss", font="Arial 10", pady=5, padx=10, bg="red",
+                                          command=self.quit_to_start)
+        self.help_dismiss_button.grid(row=2, padx=5, pady=10)
+
+    # Defining a function that quits from the help window, back to the start window
+    def quit_to_start(self):
+
+        # Prints a message stating that the button is functional if the button is functional
+        print("functional")
+
+        # Opens the start window
+        Start(self)
+
+        # Destroys the help window
+        self.help_box.destroy()
 
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":

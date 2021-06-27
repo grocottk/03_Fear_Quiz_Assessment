@@ -40,7 +40,8 @@ class Start:
         self.question_amount_entry_box.grid(row=0)
 
         # Question Amount Button (Row 1) (inspired by "00_Compiled_Version_6.py")
-        self.question_amount_button = Button(self.start_frame, font="Arial 14 bold", text="Enter question amount", command=self.check_question_amount)
+        self.question_amount_button = Button(self.start_frame, font="Arial 14 bold", text="Enter question amount",
+                                             command=self.check_question_amount)
         self.question_amount_button.grid(row=1)
 
         # Test Button (Row 2)
