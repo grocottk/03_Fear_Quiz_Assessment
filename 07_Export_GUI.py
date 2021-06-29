@@ -702,12 +702,23 @@ class Help:
         self.help_box.destroy()
 
 
-# Export Class (inspired by the "Help" class)
+# Export Class (inspired by the "Help" class, and the "Export" class in "00_Compiled_Version_6.py")
 class Export:
     def __init__(self, partner):
 
         # Prints text that indicates that the window has been correctly mentioned
         print("functional")
+
+        # Establishes the export box (inspired by "00_Compiled_Version_6.py") [inspired by "00_Compiled_Version_6.py"]
+        self.export_box = Toplevel()
+
+        # Sets up the export frame (inspired by "00_Compiled_Version_6.py")
+        self.export_frame = Frame(self.export_box, width=500)
+        self.export_frame.grid()
+
+        # Export heading label (Row 0) [partially inspired by "00_Compiled_Version_6.py"]
+        self.export_heading_label = Label(self.export_frame, text="Statistics Export", font="Arial 20 bold")
+        self.export_heading_label.grid(row=0)
 
 
 # Main Routine (edited from "02_Start_GUI.py")
