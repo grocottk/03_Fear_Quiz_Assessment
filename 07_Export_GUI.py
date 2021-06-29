@@ -703,6 +703,7 @@ class Help:
 
 
 # Export Class (inspired by the "Help" class, and the "Export" class in "00_Compiled_Version_6.py")
+# ... [Some of this window's structure has been inspired by the Graphical User Interface Design sheet and/or diagram]
 class Export:
     def __init__(self, partner):
 
@@ -719,6 +720,32 @@ class Export:
         # Export heading label (Row 0) [partially inspired by "00_Compiled_Version_6.py"]
         self.export_heading_label = Label(self.export_frame, text="Statistics Export", font="Arial 20 bold")
         self.export_heading_label.grid(row=0)
+
+        # File name entry instructions (Row 1) [Inspired by "start_instructions" in the "Start" segment and/or class]
+        self.export_instructions = Label(self.export_frame,
+                                        text="Please enter a name for the file containing your quiz information below.",
+                                        font="Arial 10 italic", justify=LEFT, padx=10, pady=10, wrap=350)
+        self.export_instructions.grid(row=1)
+
+        # Export file name entry box (Row 2) [Inspired by the "number_entry_box" from the "Start" segment and/or class]
+        self.export_file_name_entry_box = Entry(self.export_frame, width=50)
+        self.export_file_name_entry_box.grid(row=2)
+
+        # Export error message space (Row 3)
+        # ... [Inspired by the "start_error_message_area" in the "Start" class and/or segment]
+        self.export_error_message_space = Label(self.export_frame, font="Arial 10", text="")
+        self.export_error_message_space.grid(row=1)
+
+        # Export buttons frame (Row 4) [Inspired by the "start_buttons_frame" in the "Start" class and/or segment]
+        self.export_buttons_frame = Frame(pady=15)
+        self.export_buttons_frame.grid(row=4)
+
+        # Export dismiss button (Row 0, Column 0) [Inspired by the "help_button" from the "Start" class and/or segment]
+        self.export_dismiss_button = Button(self.export_buttons_frame, text="Dismiss", font="Arial 10", pady=5, padx=10,
+                                            bg="orange")
+        self.export_dismiss_button.grid(row=0, column=0)
+
+        # Save button (Row 0, Column 1)
 
 
 # Main Routine (edited from "02_Start_GUI.py")
