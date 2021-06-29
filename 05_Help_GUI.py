@@ -150,7 +150,7 @@ class Start:
     def to_help_from_start(self):
 
         # Prints "functional" to test and see whether the function has been called and is functional
-        print("functional")
+        # print("functional")
 
         # Sends the user to the health class window
         Help(self)
@@ -518,13 +518,16 @@ class Quiz:
     def to_help_from_quiz(self):
 
         # Prints "functional" to test and see whether the function has been called and is functional
-        print("functional")
+        # print("functional")
 
         # Sends the user to the "Help" window
         Help(self)
 
         # Destroys quiz frame
         self.quiz_frame.destroy()
+
+        # Destroys quiz box (from the above segment of the "to_help_from_quiz" function.)
+        self.quiz_box.destroy()
 
         # Destroys the frame of the start buttons (inspired by the "to_quiz" function)
         # self.start_buttons_frame.destroy()
@@ -675,7 +678,7 @@ class Help:
     def quit_to_start(self):
 
         # Prints a message stating that the button is functional if the button is functional
-        print("functional")
+        # print("functional")
 
         # Opens the start window
         Start(self)
