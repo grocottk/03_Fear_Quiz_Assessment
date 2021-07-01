@@ -255,28 +255,28 @@ class Quiz:
 
         # Answer Option 1 Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
+        self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="",
                                                command=lambda: self.check_answer(self.answer_option_one_button['text'],
                                                                                  question_amount), state=DISABLED)
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
+        self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", text="",
                                                command=lambda: self.check_answer(self.answer_option_two_button['text'],
                                                                                  question_amount), state=DISABLED)
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
+        self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", text="",
                                                  command=lambda: self.check_answer(
                                                      self.answer_option_three_button['text'], question_amount), state=DISABLED)
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
-        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", width=10, text="",
+        self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", text="",
                                                 command=lambda: self.check_answer(
                                                     self.answer_option_four_button['text'], question_amount), state=DISABLED)
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
@@ -294,8 +294,9 @@ class Quiz:
         # Next Question Button (Row 0, Column 0) [From "00_Compiled_Version_6.py"] (Adapted from above button template) [Partially inspired by "00_Compiled_Version_6.py".]
         # ... (Inspiration for button from: "https://stackoverflow.com/questions/57235726/how-can-i-assign-a-function-to-a-variable-without-running-it".)
         # ... [From the file "00_Compiled_Version_6.py".] (Inspired by the file "00_Compiled_Version_6.py")
+        # ... [width and height commands parially inspired by memory]
         self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green",
-                                           command=self.question_randomising)
+                                           command=self.question_randomising, width=22, height=2)
         self.next_question_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Label (Row 6)
