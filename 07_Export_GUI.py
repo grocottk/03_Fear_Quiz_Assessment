@@ -634,6 +634,7 @@ class Statistics:
         # Destroys the statistics window (inspired by above code mentioning the "statistics_box")
         self.statistics_box.destroy()
 
+
 # Help Class (inspired by the "Statistics" class)
 class Help:
     def __init__(self, partner):
@@ -712,7 +713,7 @@ class Export:
     def __init__(self, partner):
 
         # Prints text that indicates that the window has been correctly mentioned
-        print("functional")
+        # print("functional")
 
         # Establishes the export box (inspired by "00_Compiled_Version_6.py") [inspired by "00_Compiled_Version_6.py"]
         self.export_box = Toplevel()
@@ -747,13 +748,28 @@ class Export:
 
         # Export dismiss button (Row 0, Column 0) [Inspired by the "help_button" from the "Start" class and/or segment]
         self.export_dismiss_button = Button(self.export_buttons_frame, text="Dismiss", font="Arial 10", pady=5, padx=10,
-                                            bg="orange")
-        self.export_dismiss_button.grid(row=0, column=0)
+                                            bg="orange", command=self.export_to_start)
+        self.export_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export save button (Row 0, Column 1) [Inspired by the "export_dismiss_button"]
         self.export_save_button = Button(self.export_buttons_frame, text="Save", font="Arial 10", pady=5, padx=10,
-                                            bg="blue")
-        self.export_save_button.grid(row=0, column=1)
+                                         bg="blue")
+        self.export_save_button.grid(row=0, column=1, padx=10)
+
+    # Defining the function that sends the user to the start window (inspired by the "statistics_close" function)
+    def export_to_start(self):
+
+        # Destroys the export box
+        self.export_box.destroy()
+
+        # Destroys the export frame
+        self.export_frame.destroy()
+
+        # Destroys the "export_buttons_frame"
+        self.export_buttons_frame.destroy()
+
+        # Generate the start window
+        Start(self)
 
 
 # Main Routine (edited from "02_Start_GUI.py")
