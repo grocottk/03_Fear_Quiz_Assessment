@@ -775,11 +775,113 @@ class Export:
         Start(self)
 
     # Defining an export saving button (Inspired by "00_Compiled_Version_6.py")
+    # ... [Inspired by the "save_history" portion of "00_Compiled_Version_6.py"]
     def export_saving(self, question_amount, correct_answer_amount):
 
         # Prints the question amount and the correct answer amount for testing purposes
-        print(question_amount)
-        print(correct_answer_amount)
+        # print(question_amount)
+        # print(correct_answer_amount)
+
+        # Creates a variable that serves to check whether a character in a given proposed file name is valid
+        valid_characters = "[A-Za-z0-9_]"
+
+        # Sets the file_name_file_name_has_error variable to "no" to begin
+        file_name_has_error = "no"
+
+        # Defines a file name variable as the entry from the export window's entry box
+        proposed_file_name = self.export_file_name_entry_box.get()
+
+        # For each letter in the proposed file name, complete the following
+        for letter in proposed_file_name:
+
+            # If the characters are valid, continue
+            if re.match(valid_characters, letter):
+                continue
+
+            # If the letter is a space, create a relevant error message
+            elif letter == " ":
+                entry_problem = "The space character is not valid for use in this context"
+
+            # If a different invalid character (that is not a space character) is entered, give the user relevant feedback
+            else:
+                entry_problem = "The {} character is not valid for use in this context".format(letter)
+
+            # Sets the file_name_has_error variable to yes
+            file_name_has_error = "yes"
+
+            # Breaks the segment of code
+            break
+
+        # If the proposed file name is blank, the user is given feedback and the file_name_has_error variable is set to yes
+        if proposed_file_name == "":
+            entry_problem = "A blank segment of text is not valid for use in this context"
+            file_name_has_error = "yes"
+
+        # If the file_name_has_error variable is equal to yes, carry out the following
+        if file_name_has_error == "yes":
+
+            # Display an error message in the export_error_message_space and set the background colour to pink
+            self.export_error_message_space.config(text="This file name is not valid: {}".format(entry_problem),
+                                                   bg="pink")
+
+        # If no errors are present, carry out the following (generate a text file)
+        else:
+
+            # Adds the '.txt' suffix to the proposed file name
+            confirmed_file_name = proposed_file_name + ".txt"
+
+            # Creates a file to hold the data
+            f = open(confirmed_file_name, "w+")
+
+            # Creates a heading for the file
+            f.write("Quiz Statistics\n\n")
+
+            # Writes the total questions asked amount to the file
+            f.write("Total questions asked in the quiz: {}\n".format(question_amount))
+
+            # Writes the total number of correct answers that the user carried out
+            f.write("Total correct answers given in the quiz: {}\n".format(correct_answer_amount))
+
+            # Writes the total number of incorrect answers that the user carried out
+            f.write("Total incorrect answers given in the quiz: {}\n".format(question_amount - correct_answer_amount))
+
+            # Writes the ratio of correct to total answers that the use gave
+            f.write("Ratio of correct answers to total answers: {}/{}\n".format(correct_answer_amount, question_amount))
+
+            # Defining a variable that finds the percentage of correct answers that the user gave,
+            # ... when compared to the total questions asked
+            # ... (Inspired by the "correct_answers_percentage_label" in the "Statistics" portion of the code)
+            correct_answer_percentage = correct_answer_amount / question_amount * 100
+
+            # Writes the percentage of correct answers that the user gave (when compared to the total questions asked)
+            # ... [Inspired by the "correct_answers_percentage_label" in the "Statistics" portion of the code]
+            f.write("Percentage of total questions answered correctly: {:.2f}%\n\n"
+                    .format(correct_answer_percentage))
+
+            # If the correct answer percentage is less than 50.00%, carry out the following
+            if correct_answer_percentage < 50:
+
+                # Writes a message telling the user that they answered less than half of their questions correctly
+                f.write("Unfortunately, you answered less than half of your attempted questions correctly")
+
+            # If the user answers 50.00% of their answers correctly, carry out the following
+            elif correct_answer_percentage == 50:
+
+                # Writes a message telling the user that they answered half of the questions that they were asked correctly
+                f.write("You answered half of your attempted questions correctly")
+
+            # If the user answers more than 50.00% of the questions that they are asked correctly, carry out the following
+            elif correct_answer_percentage > 50:
+
+                # Writes a message telling the user that more than half of the answers that they gave were correct
+                f.write("Congratulations, you answered more than half of your attempted questions correctly")
+
+            # Closes the file after information has been entered
+            f.close()
+
+            # Sends the user to the start window after data has been exported
+            self.export_to_start()
+
 
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":
