@@ -702,6 +702,9 @@ class Help:
         # Destroys the help window
         self.help_box.destroy()
 
+        # Destroys the help frame (inspired by "help_box" destruction)
+        self.help_frame.destroy()
+
 
 # Export Class (inspired by the "Help" class, and the "Export" class in "00_Compiled_Version_6.py")
 # ... [Some of this window's structure has been inspired by the Graphical User Interface Design sheet and/or diagram]
@@ -738,7 +741,8 @@ class Export:
         self.export_error_message_space.grid(row=1)
 
         # Export buttons frame (Row 4) [Inspired by the "start_buttons_frame" in the "Start" class and/or segment]
-        self.export_buttons_frame = Frame(pady=15)
+        # ... (Inspired by the "statistics_buttons_frame")
+        self.export_buttons_frame = Frame(self.export_frame, pady=15)
         self.export_buttons_frame.grid(row=4)
 
         # Export dismiss button (Row 0, Column 0) [Inspired by the "help_button" from the "Start" class and/or segment]
@@ -746,7 +750,10 @@ class Export:
                                             bg="orange")
         self.export_dismiss_button.grid(row=0, column=0)
 
-        # Save button (Row 0, Column 1)
+        # Export save button (Row 0, Column 1) [Inspired by the "export_dismiss_button"]
+        self.export_save_button = Button(self.export_buttons_frame, text="Save", font="Arial 10", pady=5, padx=10,
+                                            bg="blue")
+        self.export_save_button.grid(row=0, column=1)
 
 
 # Main Routine (edited from "02_Start_GUI.py")
