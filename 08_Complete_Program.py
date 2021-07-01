@@ -57,29 +57,29 @@ class Start:
         self.start_buttons_frame = Frame(pady=15)
         self.start_buttons_frame.grid(row=4)
 
-        # Quit Button (Row 0, Column 0) [Inspired by the "help_button" from "Start"]
+        # Start Quit Button (Row 0, Column 0) [Inspired by the "help_button" from "Start"]
         self.start_quit_button = Button(self.start_buttons_frame, text="Quit", font="Arial 10", pady=5, padx=10,
                                         bg="red", command=self.to_quit_from_start)
-        self.start_quit_button.grid(row=0, column=0, padx=5)
+        self.start_quit_button.grid(row=0, column=0, padx=2)
 
         # Help Button (Row 0, Column 1)
         self.help_button = Button(self.start_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10, bg="orange",
                                   command=self.to_help_from_start)
-        self.help_button.grid(row=0, column=1, padx=5)
+        self.help_button.grid(row=0, column=1, padx=2)
 
         # Check Questions Number Button (Row 0, Column 2)
         self.check_questions_number_button = Button(self.start_buttons_frame, text="Check Questions Number",
                                                     font="Arial 10", pady=5, padx=10, bg="pink",
                                                     command=self.check_question_amount)
-        self.check_questions_number_button.grid(row=0, column=2, padx=5)
+        self.check_questions_number_button.grid(row=0, column=2, padx=2)
 
         # Start Button (Row 1, Column 0) [Button Spanning research at the following links:
         # ... https://www.google.com/search?q=How+to+span+across+columns+in+tkinter&rlz=1C1GCEV_enNZ951NZ952&oq=How+to+span+across+columns+in+tkinter&aqs=chrome..69i57j33i22i29i30l2.12096j1j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on,
         # ... https://stackoverflow.com/questions/44659879/ttk-button-span-multiple-columns]
-        self.start_button = Button(self.start_buttons_frame, text="Start", font="Arial 10", pady=5, padx=10, bg="green",
-                                   width=25,
+        self.start_button = Button(self.start_buttons_frame, text="Start", font="Arial 10", pady=5, bg="lime",
+                                   width=36,
                                    command=self.to_quiz, state=DISABLED)
-        self.start_button.grid(row=1, column=0, columnspan=2, pady=5)
+        self.start_button.grid(row=1, column=0, columnspan=3, pady=5)
 
     # Question Amount Checking (inspired by "02_Start_GUI.py", specifically the segement titled "check_funds",
     # ... and "12g_Assembled_Program.py")
@@ -307,12 +307,12 @@ class Quiz:
         # ... (Inspiration for button from: "https://stackoverflow.com/questions/57235726/how-can-i-assign-a-function-to-a-variable-without-running-it".)
         # ... [From the file "00_Compiled_Version_6.py".] (Inspired by the file "00_Compiled_Version_6.py")
         # ... [width and height commands parially inspired by memory]
-        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="green",
+        self.next_question_button = Button(self.answers_submit_frame, font="Arial 10", text="Begin Quiz", bg="lime",
                                            command=self.question_randomising, width=22, height=2)
         self.next_question_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Label (Row 6)
-        self.answer_label = Label(self.quiz_frame, font="Arial 10", text="", pady=10, padx=5)
+        self.answer_label = Label(self.quiz_frame, font="Arial 10", text="", pady=10, padx=5, bg="grey")
         self.answer_label.grid(row=6)
 
         # Quiz Bottom Buttons Frame (Row 7) [inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"]
@@ -477,7 +477,7 @@ class Quiz:
 
                 # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
                 self.answer_label.configure(
-                    text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
+                    text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="lime")
 
                 # If the button position is one (1), print a message to the user for testing purposes
                 if button_position == 1:
@@ -490,8 +490,9 @@ class Quiz:
                 self.answer_label.configure(
                     text="Incorrect, you have entered {} correct answer(s)".format(correct_answer_amount), fg="red")
 
-                if position == "one":
-                    self.answer_option_one_button.config(bg="pink")
+                # Collects the position of the chosen button and changes the button's visual appearance
+                # if position == "one":
+                    # self.answer_option_one_button.config(bg="pink")
 
         # Sets the question number to the total questions asked
         # self.question_number.set(total_questions_asked)
@@ -671,7 +672,7 @@ class Help:
                     "       please check your entry with the 'Check Questions Number', and then once the answer \n" \
                     "       has been checked, you can press the start button." \
                     "\n\n" \
-                    "   2. Once you are in in the quiz window itself, you can press the green 'Begin Quiz' button to \n" \
+                    "   2. Once you are in in the quiz window itself, you can press the lime 'Begin Quiz' button to \n" \
                     "       begin the quiz. To answer the question shown, you can press the button that you would like to \n" \
                     "       use as your answer. Once you have pressed this button, you will be told the result of your \n" \
                     "       guess (as in, whether it is correct or incorrect), as well as the number of questions that \n" \
