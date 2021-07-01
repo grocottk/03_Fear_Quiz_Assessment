@@ -606,8 +606,9 @@ class Statistics:
         # Export Button (Row 0, Column 1) [Inspired by "statistics_buttons_frame" formatting]
         # ... (inspired by above "statistics_dismiss_button") [padding inspired by the "quit_button"]
         # ... (inspired by the "statistics_dismiss_button" button)
+        # ... [Inspired by the "export_button" from "00_Compiled_Version_6.py"]
         self.statistics_export_button = Button(self.statistics_buttons_frame, text="Export", bg="blue", pady=5,
-                                               padx=10, command=self.to_export)
+                                               padx=10, command=lambda: self.to_export(question_amount, correct_answer_amount))
         self.statistics_export_button.grid(row=0, column=1, padx=10)
 
     # Statistics closing function (inspired by "00_Compiled_Version_6.py")
@@ -620,13 +621,13 @@ class Statistics:
         root.destroy()
 
     # Defines a to_export function
-    def to_export(self):
+    def to_export(self, question_amount, correct_answer_amount):
 
         # Prints a message stating that the function is functional once a button has been pressed.
         # print("functional")
 
         # Opens the export class (and/or window)
-        Export(self)
+        Export(self, question_amount, correct_answer_amount)
 
         # Destroys the statistics frame (inspired by mention of the "statistics_frame")
         self.statistics_frame.destroy()
@@ -710,7 +711,7 @@ class Help:
 # Export Class (inspired by the "Help" class, and the "Export" class in "00_Compiled_Version_6.py")
 # ... [Some of this window's structure has been inspired by the Graphical User Interface Design sheet and/or diagram]
 class Export:
-    def __init__(self, partner):
+    def __init__(self, partner, question_amount, correct_answer_amount):
 
         # Prints text that indicates that the window has been correctly mentioned
         # print("functional")
@@ -752,8 +753,10 @@ class Export:
         self.export_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export save button (Row 0, Column 1) [Inspired by the "export_dismiss_button"]
+        # ... (Inspired by "00_Compiled_Version_6.py")
+        # ... [Inspired by the "save_button" portion of "00_Compiled_Version_6.py"]
         self.export_save_button = Button(self.export_buttons_frame, text="Save", font="Arial 10", pady=5, padx=10,
-                                         bg="blue")
+                                         bg="blue", command=partial (lambda: self.export_saving(question_amount, correct_answer_amount)))
         self.export_save_button.grid(row=0, column=1, padx=10)
 
     # Defining the function that sends the user to the start window (inspired by the "statistics_close" function)
@@ -771,6 +774,12 @@ class Export:
         # Generate the start window
         Start(self)
 
+    # Defining an export saving button (Inspired by "00_Compiled_Version_6.py")
+    def export_saving(self, question_amount, correct_answer_amount):
+
+        # Prints the question amount and the correct answer amount for testing purposes
+        print(question_amount)
+        print(correct_answer_amount)
 
 # Main Routine (edited from "02_Start_GUI.py")
 if __name__ == "__main__":
