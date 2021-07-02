@@ -47,14 +47,14 @@ class Start:
 
         # Number Entry Box (Row 2) [from "01_Mystery_Box_Outline.py"]
         self.number_entry_box = Entry(self.start_frame, width=50)
-        self.number_entry_box.grid(row=2)
+        self.number_entry_box.grid(row=2, pady=5)
 
         # Start Error Message Area (Row 3)
         self.start_error_message_area = Label(self.start_frame, font="Arial 10", text="")
         self.start_error_message_area.grid(row=3)
 
         # Start Buttons Frame (Row 4) [inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"]
-        self.start_buttons_frame = Frame(pady=15)
+        self.start_buttons_frame = Frame(pady=5)
         self.start_buttons_frame.grid(row=4)
 
         # Start Quit Button (Row 0, Column 0) [Inspired by the "help_button" from "Start"]
@@ -170,7 +170,10 @@ class Start:
     def to_quit_from_start(self):
 
         # Prints a message that tells the user that this function is at least partially functional (for testing purposes)
-        print("functional")
+        # print("functional")
+
+        # Destroys the program's windows, and ends the quiz (inspired by the "to_quit" function)
+        root.destroy()
 
 
 # Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py") [This segment also takes inspiration from the file "00_Compiled_Version_6.py"]
@@ -224,8 +227,8 @@ class Quiz:
         # GUI Setup
         self.quiz_box = Toplevel()
 
-        # If users press cross at top, the quiz quits
-        self.quiz_box.protocol('WM_DELETE_WINDOW', self.to_quit)
+        # If users press cross at top, the quiz dismisses to the start window
+        self.quiz_box.protocol('WM_DELETE_WINDOW', self.to_dismiss)
 
         # Defining the Quiz Frame
         self.quiz_frame = Frame(self.quiz_box, padx=10, pady=10)
@@ -312,7 +315,7 @@ class Quiz:
         self.next_question_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Label (Row 6)
-        self.answer_label = Label(self.quiz_frame, font="Arial 10", text="", pady=10, padx=5, bg="grey")
+        self.answer_label = Label(self.quiz_frame, font="Arial 10", text="", pady=10, padx=5)
         self.answer_label.grid(row=6)
 
         # Quiz Bottom Buttons Frame (Row 7) [inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"]
@@ -320,11 +323,9 @@ class Quiz:
         self.quiz_bottom_buttons_frame = Frame(self.quiz_frame)
         self.quiz_bottom_buttons_frame.grid(row=7)
 
-        # Quit Button (Row 0, Column 0) [Function from "05_Game_Playable.py"]
-        self.quit_button = Button(self.quiz_bottom_buttons_frame, text="Quit", font="Arial 10", pady=5, padx=10,
-                                  bg="red",
-                                  command=self.to_quit)
-        self.quit_button.grid(row=0, column=0, padx=10)
+        # Quiz Dismiss Button (Row 0, Column 0) [Function from "05_Game_Playable.py"]
+        self.quiz_dismiss_button = Button(self.quiz_bottom_buttons_frame, text="Dismiss", font="Arial 10", pady=5, padx=10, bg="yellow", command=self.to_dismiss)
+        self.quiz_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Help Button (Row 0, Column 1)
         self.help_button = Button(self.quiz_bottom_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10,
@@ -406,10 +407,10 @@ class Quiz:
         self.next_question_button.config(state=DISABLED)
 
         # Configuring button text, and enabling buttons for answering (from "04b_Statistic_Gathering_Loop.py")
-        self.answer_option_one_button.config(text=randomised_answers[0][1], state=NORMAL)
-        self.answer_option_two_button.config(text=randomised_answers[1][1], state=NORMAL)
-        self.answer_option_three_button.config(text=randomised_answers[2][1], state=NORMAL)
-        self.answer_option_four_button.config(text=randomised_answers[3][1], state=NORMAL)
+        self.answer_option_one_button.config(text=randomised_answers[0][1], state=NORMAL, bg="white")
+        self.answer_option_two_button.config(text=randomised_answers[1][1], state=NORMAL, bg="white")
+        self.answer_option_three_button.config(text=randomised_answers[2][1], state=NORMAL, bg="white")
+        self.answer_option_four_button.config(text=randomised_answers[3][1], state=NORMAL, bg="white")
 
         # Enables Next Question Button (inspired by parts of the "question_randomising" function in this file)
         # ... [Inspired by the disabling code above]
@@ -445,17 +446,14 @@ class Quiz:
         # ... update the answer label, and end the quiz.
         if total_questions_asked >= question_amount:
 
-            # Tells the user that they have finished the quiz once all questions have been asked
-            self.answer_label.config(
-                text="You have finished the quiz with {} of {} questions correct".format(correct_answer_amount,
-                                                                                         total_questions_asked),
-                fg="black")
+            # This sets the answer label to being blank
+            self.answer_label.config(text="")
 
             # Disables the next question button if the designated number of questions have been asked
             # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
             # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
             # ... (Inspired by above question buttons)
-            self.next_question_button.configure(text="View Statistics", bg="orange",
+            self.next_question_button.configure(text="View Statistics", bg="violet",
                                                 command=lambda: self.to_statistics(question_amount, correct_answer_amount))
 
             # Disables the answer buttons (inspired by "04b_Statistic_Gathering_Loop.py"
@@ -469,7 +467,7 @@ class Quiz:
         # ... checking to see if their answer is correct
         else:
 
-            # If the chosen button variable is equal to 0, tell the user that they are correct.
+            # If the chosen button variable is equal to the correct answer check variable, tell the user that they are correct.
             if chosen_button == correct_answer_check:
 
                 # Adds one (1) to correct answer amount
@@ -477,22 +475,72 @@ class Quiz:
 
                 # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
                 self.answer_label.configure(
-                    text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="lime")
+                    text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount))
 
-                # If the button position is one (1), print a message to the user for testing purposes
+                # If the button position is one (1), change the button's colour to lime
                 if button_position == 1:
-                    print("button one (1) pressed")
 
-            # If the chosen button variable is not equal to 0, tell the user that they are incorrect.
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_one_button.config(bg="lime")
+
+                # If the button position is two (2), change the button's colour to lime
+                # (inspired by the "button_position" segment of the program)
+                if button_position == 2:
+
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_two_button.config(bg="lime")
+
+                # If the button position is three (3), change the button's colour to lime
+                # (inspired by the "button_position" segment of the program)
+                if button_position == 3:
+
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_three_button.config(bg="lime")
+
+                # If the button position is four (4), change the button's colour to lime
+                # (inspired by the "button_position" segment of the program)
+                if button_position == 4:
+
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_four_button.config(bg="lime")
+
+            # If the chosen button variable is not equal to the correct answer check variable, tell the user that they are correct.
             else:
 
                 # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
                 self.answer_label.configure(
-                    text="Incorrect, you have entered {} correct answer(s)".format(correct_answer_amount), fg="red")
+                    text="Incorrect, the correct answer was {}".format(correct_answer_check))
 
-                # Collects the position of the chosen button and changes the button's visual appearance
-                # if position == "one":
-                    # self.answer_option_one_button.config(bg="pink")
+                # If the button position is one (1), print a message to the user for testing purposes
+                # if button_position == 1:
+
+                # If the button position is one (1), change the button's colour to pink
+                # ... (inspired by the "button_position" segment of the project and/or program)
+                if button_position == 1:
+
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_one_button.config(bg="pink")
+
+                # If the button position is two (2), change the button's colour to pink
+                # ... (inspired by the "button_position" segment of the project and/or program)
+                if button_position == 2:
+
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_two_button.config(bg="pink")
+
+                # If the button position is three (3), change the button's colour to pink
+                # ... (inspired by the "button_position" segment of the project and/or program)
+                if button_position == 3:
+
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_three_button.config(bg="pink")
+
+                # If the button position is four (4), change the button's colour to pink
+                # ... (inspired by the "button_position" segment of the project and/or program)
+                if button_position == 4:
+
+                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                    self.answer_option_four_button.config(bg="pink")
 
         # Sets the question number to the total questions asked
         # self.question_number.set(total_questions_asked)
@@ -519,11 +567,14 @@ class Quiz:
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
 
-    # Function to quit quiz
-    def to_quit(self):
+    # Function to dismiss the quiz
+    def to_dismiss(self):
 
-        # Destroys window
-        root.destroy()
+        # Destroys the quiz box (inspired by "quiz_box")
+        self.quiz_box.destroy()
+
+        # Creates the start window
+        Start(self)
 
     # Calls statistics window (inspired by "00_Compiled_Version_6.py")
     def to_statistics(self, question_amount, correct_answer_amount):
@@ -619,7 +670,7 @@ class Statistics:
 
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
         # ... (padding ispired by the "quit_button") [Inspired by "00_Compiled_Version_6.py"]
-        self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Quit", bg="red", pady=5,
+        self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Dismiss", bg="yellow", pady=5,
                                                 padx=10, command=self.statistics_close)
         self.statistics_dismiss_button.grid(row=0, column=0, padx=10)
 
@@ -627,7 +678,7 @@ class Statistics:
         # ... (inspired by above "statistics_dismiss_button") [padding inspired by the "quit_button"]
         # ... (inspired by the "statistics_dismiss_button" button)
         # ... [Inspired by the "export_button" from "00_Compiled_Version_6.py"]
-        self.statistics_export_button = Button(self.statistics_buttons_frame, text="Export", bg="blue", pady=5,
+        self.statistics_export_button = Button(self.statistics_buttons_frame, text="Export", bg="cyan", pady=5,
                                                padx=10, command=lambda: self.to_export(question_amount, correct_answer_amount))
         self.statistics_export_button.grid(row=0, column=1, padx=10)
 
@@ -637,8 +688,8 @@ class Statistics:
         # Destroys statistics box
         self.statistics_box.destroy()
 
-        # Destroys root
-        root.destroy()
+        # Creates the start window
+        Start(self)
 
     # Defines a to_export function
     def to_export(self, question_amount, correct_answer_amount):
@@ -680,10 +731,10 @@ class Help:
                     "       button to continue to the next question. The question counter at the top of the window will \n" \
                     "       allow you to have an idea of how far through the quiz you are." \
                     "\n\n" \
-                    "   3. After you have completed the quiz, you can quit the quiz by pressing the 'Quit' button. \n" \
+                    "   3. After you have completed the quiz, you can dismiss the quiz (and return to the start window) by pressing the 'Dismiss' button. \n" \
                     "       If you would like to view the statistics of your quiz, you can press the 'View Statistics' \n" \
                     "       button. While in this window, you can view a number of important statistics from your quiz. \n" \
-                    "       After viewing these statistics, you can either press the 'Quit' button to quit the window(s), \n" \
+                    "       After viewing these statistics, you can either press the 'Dismiss' button to dismiss the window(s) (and return to the start window), \n" \
                     "       or the 'Export' button to open the export window. Once in the export window, you will be able \n" \
                     "       to export the data that you have generated throughout the quiz." \
                     "\n\n" \
@@ -708,7 +759,7 @@ class Help:
 
         # Help dismiss button (Row 2) [Inspired by the "Start" segment and some of the above formatting in the
         # ... "help_text_label" as an example]
-        self.help_dismiss_button = Button(self.help_frame, text="Dismiss", font="Arial 10", pady=5, padx=10, bg="red",
+        self.help_dismiss_button = Button(self.help_frame, text="Dismiss", font="Arial 10", pady=5, padx=10, bg="yellow",
                                           command=self.quit_to_start)
         self.help_dismiss_button.grid(row=2, padx=5, pady=10)
 
@@ -760,23 +811,23 @@ class Export:
         # Export error message space (Row 3)
         # ... [Inspired by the "start_error_message_area" in the "Start" class and/or segment]
         self.export_error_message_space = Label(self.export_frame, font="Arial 10", text="")
-        self.export_error_message_space.grid(row=1)
+        self.export_error_message_space.grid(row=3, pady=5)
 
         # Export buttons frame (Row 4) [Inspired by the "start_buttons_frame" in the "Start" class and/or segment]
         # ... (Inspired by the "statistics_buttons_frame")
-        self.export_buttons_frame = Frame(self.export_frame, pady=15)
+        self.export_buttons_frame = Frame(self.export_frame, pady=5)
         self.export_buttons_frame.grid(row=4)
 
         # Export dismiss button (Row 0, Column 0) [Inspired by the "help_button" from the "Start" class and/or segment]
         self.export_dismiss_button = Button(self.export_buttons_frame, text="Dismiss", font="Arial 10", pady=5, padx=10,
-                                            bg="orange", command=self.export_to_start)
+                                            bg="yellow", command=self.export_to_start)
         self.export_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export save button (Row 0, Column 1) [Inspired by the "export_dismiss_button"]
         # ... (Inspired by "00_Compiled_Version_6.py")
         # ... [Inspired by the "save_button" portion of "00_Compiled_Version_6.py"]
         self.export_save_button = Button(self.export_buttons_frame, text="Save", font="Arial 10", pady=5, padx=10,
-                                         bg="blue", command=partial (lambda: self.export_saving(question_amount, correct_answer_amount)))
+                                         bg="cyan", command=partial (lambda: self.export_saving(question_amount, correct_answer_amount)))
         self.export_save_button.grid(row=0, column=1, padx=10)
 
     # Defining the function that sends the user to the start window (inspired by the "statistics_close" function)
@@ -854,7 +905,7 @@ class Export:
             f = open(confirmed_file_name, "w+")
 
             # Creates a heading for the file
-            f.write("Quiz Statistics\n\n")
+            f.write("%/%/% Quiz Statistics %\%\%\n\n")
 
             # Writes the total questions asked amount to the file
             f.write("Total questions asked in the quiz: {}\n".format(question_amount))

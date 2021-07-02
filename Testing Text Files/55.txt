@@ -1,0 +1,9 @@
+%/%/% Quiz Statistics %\%\%
+
+Total questions asked in the quiz: 5
+Total correct answers given in the quiz: 3
+Total incorrect answers given in the quiz: 2
+Ratio of correct answers to total answers: 3/5
+Percentage of total questions answered correctly: 60.00%
+
+Congratulations, you answered more than half of your attempted questions correctly
