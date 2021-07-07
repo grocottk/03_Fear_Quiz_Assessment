@@ -642,7 +642,7 @@ class Statistics:
 
         # If users press cross at top, the quiz dismisses to the start window
         # ... (from "quiz_box" in the "Quiz" segment of the code)
-        self.statistics_box.protocol('WM_DELETE_WINDOW', self.statistics_close(question_amount))
+        self.statistics_box.protocol('WM_DELETE_WINDOW', self.statistics_close)
 
         # Creating the statistics frame (inspired by the "Quiz" segment) [frame name(s) replaced using replace function]
         self.statistics_frame = Frame(self.statistics_box, padx=10, pady=10)
@@ -700,7 +700,7 @@ class Statistics:
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
         # ... (padding ispired by the "quit_button") [Inspired by "00_Compiled_Version_6.py"]
         self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Dismiss", bg="yellow", pady=5,
-                                                padx=10, command=self.statistics_close(question_amount))
+                                                padx=10, command=self.statistics_close)
         self.statistics_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export Button (Row 0, Column 1) [Inspired by "statistics_buttons_frame" formatting]
@@ -711,17 +711,23 @@ class Statistics:
                                                padx=10, command=lambda: self.to_export(question_amount, correct_answer_amount))
         self.statistics_export_button.grid(row=0, column=1, padx=10)
 
-    # Statistics closing function (inspired by "00_Compiled_Version_6.py")
-    def statistics_close(self, question_amount):
+    # Establishes a statistics close check function that checks to see if the user is willing to lose their progress.
+    # def statistics_close_check(self):
 
-        # Sets the start question amount as the question amount (as an integer)
-        start_question_amount = int(question_amount)
+    # Statistics closing function (inspired by "00_Compiled_Version_6.py")
+    def statistics_close(self):
 
         # Destroys statistics box
         self.statistics_box.destroy()
 
-        # Creates the quiz window
-        Quiz(self, start_question_amount)
+        # Creates the start window
+        Start(self)
+
+        # The following is from the "close_statistics" function in the "GameStatistics"
+        # ... segment of the file named "00_Compiled_Version_6.py":
+        # Put statistics button back to normal:
+        # partner.statistics_button.config(state=NORMAL)
+        # self.statistics_box.destroy()
 
     # Defines a to_export function
     def to_export(self, question_amount, correct_answer_amount):
