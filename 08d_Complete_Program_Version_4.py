@@ -26,7 +26,14 @@ import \
 class Start:
     def __init__(self, parent):
 
-        # Initialising Start Frame (from "01_Mystery_Box_Outline.py")
+        # Establishes the start box (inspired by the "Quiz" segment of the code)
+        # self.start_box = Toplevel()
+
+        # If users press cross at top, the quiz dismisses to the start window
+        # ... (inspired by "quiz_box" in the "Quiz" segment of the code)
+        # self.start_box.protocol('WM_DELETE_WINDOW', self.to_quit_from_start)
+
+        # Initialising Start Frame (from "01_Mystery_Box_Outline.py") [inspired by the "start_box"]
         self.start_frame = Frame(padx=10, pady=10)
         self.start_frame.grid()
 
@@ -54,7 +61,8 @@ class Start:
         self.start_error_message_area.grid(row=3)
 
         # Start Buttons Frame (Row 4) [inspired by "08b_Game_Export_GUI_Version_2.py" and "05_Game_Playable.py"]
-        self.start_buttons_frame = Frame(pady=5)
+        # ... (inspired by the "start_frame")
+        self.start_buttons_frame = Frame(self.start_frame, pady=5)
         self.start_buttons_frame.grid(row=4)
 
         # Start Quit Button (Row 0, Column 0) [Inspired by the "help_button" from "Start"]
@@ -632,6 +640,10 @@ class Statistics:
         # GUI Setup (from above class)
         self.statistics_box = Toplevel()
 
+        # If users press cross at top, the quiz dismisses to the start window
+        # ... (from "quiz_box" in the "Quiz" segment of the code)
+        self.statistics_box.protocol('WM_DELETE_WINDOW', self.statistics_close(question_amount))
+
         # Creating the statistics frame (inspired by the "Quiz" segment) [frame name(s) replaced using replace function]
         self.statistics_frame = Frame(self.statistics_box, padx=10, pady=10)
         self.statistics_frame.grid()
@@ -688,7 +700,7 @@ class Statistics:
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
         # ... (padding ispired by the "quit_button") [Inspired by "00_Compiled_Version_6.py"]
         self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Dismiss", bg="yellow", pady=5,
-                                                padx=10, command=self.statistics_close)
+                                                padx=10, command=self.statistics_close(question_amount))
         self.statistics_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export Button (Row 0, Column 1) [Inspired by "statistics_buttons_frame" formatting]
@@ -700,13 +712,16 @@ class Statistics:
         self.statistics_export_button.grid(row=0, column=1, padx=10)
 
     # Statistics closing function (inspired by "00_Compiled_Version_6.py")
-    def statistics_close(self):
+    def statistics_close(self, question_amount):
+
+        # Sets the start question amount as the question amount (as an integer)
+        start_question_amount = int(question_amount)
 
         # Destroys statistics box
         self.statistics_box.destroy()
 
-        # Creates the start window
-        Start(self)
+        # Creates the quiz window
+        Quiz(self, start_question_amount)
 
     # Defines a to_export function
     def to_export(self, question_amount, correct_answer_amount):
@@ -761,6 +776,10 @@ class Help:
         # Sets up GUI
         self.help_box = Toplevel()
 
+        # If users press cross at top, the quiz dismisses to the start window
+        # ... (from "quiz_box" in the "Quiz" segment of the code)
+        self.help_box.protocol('WM_DELETE_WINDOW', self.quit_to_start)
+
         # Creating the help frame (inspired by the "Quiz" segment) [frame name(s) replaced using replace function]
         # ... (inspired by the "statistics_frame")
         self.help_frame = Frame(self.help_box, padx=10, pady=10)
@@ -806,6 +825,10 @@ class Export:
 
         # Establishes the export box (inspired by "00_Compiled_Version_6.py") [inspired by "00_Compiled_Version_6.py"]
         self.export_box = Toplevel()
+
+        # If users press cross at top, the quiz dismisses to the start window
+        # ... (from "quiz_box" in the "Quiz" segment of the code)
+        self.export_box.protocol('WM_DELETE_WINDOW', self.export_to_start)
 
         # Sets up the export frame (inspired by "00_Compiled_Version_6.py")
         self.export_frame = Frame(self.export_box, width=500)
