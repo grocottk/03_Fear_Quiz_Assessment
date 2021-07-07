@@ -443,7 +443,7 @@ class Quiz:
         # print(correct_answer_check)
 
         # If the total questions asked is not the same as the question amount, allow the user to continue,
-        # ... checking to see if their answer is correct
+        # ... checking to see if their answer is correct (Portions inspired by usability testing)
         if total_questions_asked < question_amount:
 
             # If the chosen button variable is equal to the correct answer check variable, tell the user that they are correct.
@@ -452,36 +452,13 @@ class Quiz:
                 # Adds one (1) to correct answer amount
                 correct_answer_amount = correct_answer_amount + 1
 
-                # If the button position is one (1), change the button's colour to lime
-                if button_position == 1:
+                # Sets the button background variable to lime
+                button_background = "lime"
 
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_one_button.config(bg="lime")
-
-                # If the button position is two (2), change the button's colour to lime
-                # (inspired by the "button_position" segment of the program)
-                if button_position == 2:
-
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_two_button.config(bg="lime")
-
-                # If the button position is three (3), change the button's colour to lime
-                # (inspired by the "button_position" segment of the program)
-                if button_position == 3:
-
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_three_button.config(bg="lime")
-
-                # If the button position is four (4), change the button's colour to lime
-                # (inspired by the "button_position" segment of the program)
-                if button_position == 4:
-
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_four_button.config(bg="lime")
-
-                # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
-                self.answer_label.configure(
-                    text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
+                # Changes answer section to display a correct message and amount correct
+                # ... (configure section from "12g_Assembled_Program.py") [This has been transferred from another
+                # ... segment of this code]
+                self.answer_label.configure(text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
 
             # If the chosen button variable is not equal to the correct answer check variable, tell the user that they are incorrect.
             else:
@@ -489,37 +466,40 @@ class Quiz:
                 # If the button position is one (1), print a message to the user for testing purposes
                 # if button_position == 1:
 
-                # If the button position is one (1), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 1:
+                button_background = "pink"
 
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_one_button.config(bg="pink")
+                # Changes answer section to display an incorrect error message
+                # ... (configure section from "12g_Assembled_Program.py") [This has been moved from another segment of
+                # ... this code]
+                self.answer_label.configure(text="Incorrect, the correct answer was {}".format(correct_answer_check), fg="red")
 
-                # If the button position is two (2), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 2:
+            # If the button position is one (1), change the button's colour to pink
+            # ... (inspired by the "button_position" segment of the project and/or program)
+            # if button_position == 1:
 
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_two_button.config(bg="pink")
+                # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                # self.answer_option_one_button.config(bg="pink")
 
-                # If the button position is three (3), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 3:
+            # If the button position is two (2), change the button's colour to pink
+            # ... (inspired by the "button_position" segment of the project and/or program)
+            # if button_position == 2:
 
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_three_button.config(bg="pink")
+                # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                # self.answer_option_two_button.config(bg="pink")
 
-                # If the button position is four (4), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 4:
+            # If the button position is three (3), change the button's colour to pink
+            # ... (inspired by the "button_position" segment of the project and/or program)
+            # if button_position == 3:
 
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_four_button.config(bg="pink")
+                # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                # self.answer_option_three_button.config(bg="pink")
 
-                # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
-                self.answer_label.configure(
-                    text="Incorrect, the correct answer was {}".format(correct_answer_check), fg="red")
+            # If the button position is four (4), change the button's colour to pink
+            # ... (inspired by the "button_position" segment of the project and/or program)
+            # if button_position == 4:
+
+                # Changing the button's colour to lime (inspired by "answer_option_one_button")
+                # self.answer_option_four_button.config(bg="pink")
 
         # If the total questions asked variable is greater than or equal to the question amount variable,
         # ... update the answer label, and end the quiz.
