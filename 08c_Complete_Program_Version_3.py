@@ -444,25 +444,24 @@ class Quiz:
 
         # If the total questions asked variable is greater than or equal to the question amount variable,
         # ... update the answer label, and end the quiz.
-        if total_questions_asked >= question_amount:
-
-            # This sets the answer label to being blank
-            self.answer_label.config(text="")
-
-            # Disables the next question button if the designated number of questions have been asked
-            # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
-            # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
-            # ... (Inspired by above question buttons)
-            self.next_question_button.configure(text="View Statistics", bg="violet",
-                                                command=lambda: self.to_statistics(question_amount,
-                                                                                   correct_answer_amount))
+        if total_questions_asked > question_amount:
 
             # Disables the answer buttons (inspired by "04b_Statistic_Gathering_Loop.py"
-            # ... and other portions of this function)
+            # ... and other portions of this function) [Moved from below in the given piece of code]
             self.answer_option_one_button.config(state=DISABLED)
             self.answer_option_two_button.config(state=DISABLED)
             self.answer_option_three_button.config(state=DISABLED)
             self.answer_option_four_button.config(state=DISABLED)
+
+            # This sets the answer label to being blank
+            # self.answer_label.config(text="")
+
+            # Sets the primary button to a button that ends the quiz
+            # ... (inspired by the "next_question_button" that has been set to a button that sends the user to
+            # ... view their statistics)
+            self.next_question_button.configure(text="End Quiz", bg="red",
+                                                command=lambda: self.statistics_button_change
+                                                (question_amount, correct_answer_amount))
 
         # If the total questions asked is not the same as the question amount, allow the user to continue,
         # ... checking to see if their answer is correct
@@ -604,6 +603,21 @@ class Quiz:
 
         # Destroys the frame of the start buttons (inspired by the "to_quiz" function)
         # self.start_buttons_frame.destroy()
+
+    # Defining the statistics button change function (inspired by the "to_help_from_quiz" function)
+    def statistics_button_change(self, question_amount, correct_answer_amount):
+
+        # Sets the user answer feedback section as blank (inspired by the "answer_label" configuration segment in the
+        # ... "check_answer" function)
+        self.answer_label.configure(text="")
+
+        # Disables the next question button if the designated number of questions have been asked
+        # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
+        # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
+        # ... (Inspired by above question buttons)
+        self.next_question_button.configure(text="View Statistics", bg="violet",
+                                            command=lambda: self.to_statistics(question_amount,
+                                                                               correct_answer_amount))
 
 
 # Statistics Class (setup  of class inspired by above classes)
