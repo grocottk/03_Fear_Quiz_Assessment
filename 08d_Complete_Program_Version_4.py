@@ -137,13 +137,13 @@ class Start:
     def to_quiz(self):
 
         # Gets question amount from entry box (from "00_Compiled_Version_6.py")
-        question_amount = self.number_entry_box.get()
+        start_question_amount = self.number_entry_box.get()
 
         # Prints the question_amount for testing
         # print (question_amount)
 
         # Sends variables to Quiz segmnent
-        Quiz(self, question_amount)
+        Quiz(self, start_question_amount)
 
         # Hide start up window
         self.start_frame.destroy()
@@ -178,10 +178,17 @@ class Start:
 
 # Quiz Class (From the file titled "02c_Quiz_GUI_List_Testing.py") [This segment also takes inspiration from the file "00_Compiled_Version_6.py"]
 class Quiz:
-    def __init__(self, partner, question_amount):
+    def __init__(self, partner, start_question_amount):
 
         # Converts the question_amount_check into a variable
-        question_amount = int(question_amount)
+        start_question_amount = int(start_question_amount)
+
+        # Establishing a total question amount variable (Inspired by usability testing and the
+        # ... "question_number" variable)
+        self.total_question_amount = IntVar()
+
+        # Set the total question amount as the question amount variable
+        self.total_question_amount.set(start_question_amount)
 
         # Initialise the question number variable
         self.question_number = IntVar()
@@ -236,7 +243,7 @@ class Quiz:
 
         # Question number label (Row 0)
         self.question_number_label = Label(self.quiz_frame, font="Arial 10 bold", padx=10, pady=2, justify=CENTER,
-                                           text="0/{}".format(question_amount))
+                                           text="0/{}".format(start_question_amount))
         self.question_number_label.grid(row=0)
 
         # Question text [Part 1] (Row 1)
@@ -272,28 +279,28 @@ class Quiz:
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_one_button = Button(self.answers_frame, font="Arial 10", text="",
                                                command=lambda: self.check_answer(self.answer_option_one_button['text'],
-                                                                                 question_amount, 1), state=DISABLED)
+                                                                                 1), state=DISABLED)
         self.answer_option_one_button.grid(row=0, column=0, pady=5, padx=10)
 
         # Answer Option 2 Button (Row 0, Column 1) [From "00_Compiled_Version_6.py"] 
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_two_button = Button(self.answers_frame, font="Arial 10", text="",
                                                command=lambda: self.check_answer(self.answer_option_two_button['text'],
-                                                                                 question_amount, 2), state=DISABLED)
+                                                                                 2), state=DISABLED)
         self.answer_option_two_button.grid(row=0, column=1, pady=5, padx=10)
 
         # Answer Option 3 Button (Row 1, Column 0) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_three_button = Button(self.answers_frame, font="Arial 10", text="",
                                                  command=lambda: self.check_answer(
-                                                     self.answer_option_three_button['text'], question_amount, 3), state=DISABLED)
+                                                     self.answer_option_three_button['text'], 3), state=DISABLED)
         self.answer_option_three_button.grid(row=1, column=0, pady=5, padx=10)
 
         # Answer Option 4 Button (Row 1, Column 1) [From "00_Compiled_Version_6.py"]
         # ... (Some inspiration taken from "https://stackoverflow.com/questions/306400/how-to-randomly-select-an-item-from-a-list")
         self.answer_option_four_button = Button(self.answers_frame, font="Arial 10", text="",
                                                 command=lambda: self.check_answer(
-                                                    self.answer_option_four_button['text'], question_amount, 4), state=DISABLED)
+                                                    self.answer_option_four_button['text'], 4), state=DISABLED)
         self.answer_option_four_button.grid(row=1, column=1, pady=5, padx=10)
 
         # Answers Submit Setup (Row 5) [From "00_Compiled_Version_6.py"] 
@@ -425,10 +432,16 @@ class Quiz:
     # Answer checking function [From "03b_Random_Selection_Version_2_Recovered.py".] (Function formatting inspired by "12g_Assembled_Program.py")
     # ... [This is a general research link that may inspire the program: "https://zetcode.com/python/lambda/".]
     # ... (This respource aims to educate on command(s): "https://www.google.com/search?q=pythin+get+command&rlz=1C1GCEV_enNZ951NZ952&oq=pythin+get+command&aqs=chrome..69i57j0i13l9.6352j1j7&sourceid=chrome&ie=UTF-8&safe=active&ssui=on".)
-    def check_answer(self, chosen_button, question_amount, button_position):
+    def check_answer(self, chosen_button, button_position):
 
         # Prints chosen button variable
         # print (chosen_button)
+
+        # Establishes the question amount check variable as the total question amount
+        question_amount_check = self.total_question_amount
+
+        # The question amount check variable becomes an integer
+        question_amount_check = int(question_amount_check)
 
         # Defines the total_questions_asked variable as the question_number variable
         total_questions_asked = self.question_number.get()
@@ -444,7 +457,7 @@ class Quiz:
 
         # If the total questions asked is not the same as the question amount, allow the user to continue,
         # ... checking to see if their answer is correct (Portions inspired by usability testing)
-        if total_questions_asked < question_amount:
+        if total_questions_asked < question_amount_check:
 
             # If the chosen button variable is equal to the correct answer check variable, tell the user that they are correct.
             if chosen_button == correct_answer_check:
@@ -473,104 +486,37 @@ class Quiz:
                 # ... this code]
                 self.answer_label.configure(text="Incorrect, the correct answer was {}".format(correct_answer_check), fg="red")
 
-            # If the button position is one (1), change the button's colour to pink
+            # If the button position is one (1), change the button's colour accordingly
             # ... (inspired by the "button_position" segment of the project and/or program)
-            # if button_position == 1:
+            if button_position == 1:
 
-                # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                # self.answer_option_one_button.config(bg="pink")
+                # Changing the button's colour accordingly (inspired by "answer_option_one_button")
+                self.answer_option_one_button.config(bg=button_background)
 
-            # If the button position is two (2), change the button's colour to pink
+            # If the button position is two (2), change the button's colour accordingly
             # ... (inspired by the "button_position" segment of the project and/or program)
-            # if button_position == 2:
+            elif button_position == 2:
 
-                # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                # self.answer_option_two_button.config(bg="pink")
+                # Changing the button's colour accordingly (inspired by "answer_option_one_button")
+                self.answer_option_two_button.config(bg=button_background)
 
-            # If the button position is three (3), change the button's colour to pink
+            # If the button position is three (3), change the button's colour accordingly
             # ... (inspired by the "button_position" segment of the project and/or program)
-            # if button_position == 3:
+            elif button_position == 3:
 
-                # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                # self.answer_option_three_button.config(bg="pink")
+                # Changing the button's colour accordingly (inspired by "answer_option_one_button")
+                self.answer_option_three_button.config(bg=button_background)
 
-            # If the button position is four (4), change the button's colour to pink
+            # If the button position is four (4), change the button's colour accordingly
             # ... (inspired by the "button_position" segment of the project and/or program)
-            # if button_position == 4:
-
-                # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                # self.answer_option_four_button.config(bg="pink")
-
-        # If the total questions asked variable is greater than or equal to the question amount variable,
-        # ... update the answer label, and end the quiz.
-        else:
-
-            # If the chosen button variable is equal to the correct answer check variable, tell the user that they are correct.
-            if chosen_button == correct_answer_check:
-
-                # Adds one (1) to correct answer amount
-                correct_answer_amount = correct_answer_amount + 1
-
-                # If the button position is one (1), change the button's colour to lime
-                if button_position == 1:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_one_button.config(bg="lime")
-
-                # If the button position is two (2), change the button's colour to lime
-                # (inspired by the "button_position" segment of the program)
-                if button_position == 2:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_two_button.config(bg="lime")
-
-                # If the button position is three (3), change the button's colour to lime
-                # (inspired by the "button_position" segment of the program)
-                if button_position == 3:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_three_button.config(bg="lime")
-
-                # If the button position is four (4), change the button's colour to lime
-                # (inspired by the "button_position" segment of the program)
-                if button_position == 4:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_four_button.config(bg="lime")
-
-                # Changes answer section to display a correct message and amount correct (configure section from "12g_Assembled_Program.py")
-                self.answer_label.configure(
-                    text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
-
-            # If the chosen button variable is not equal to the correct answer check variable, tell the user that they are incorrect.
             else:
 
-                # If the button position is one (1), print a message to the user for testing purposes
-                # if button_position == 1:
+                # Changing the button's colour accordingly (inspired by "answer_option_one_button")
+                self.answer_option_four_button.config(bg=button_background)
 
-                # If the button position is one (1), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 1:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_one_button.config(bg="pink")
-
-                # If the button position is two (2), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 2:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_two_button.config(bg="pink")
-
-                # If the button position is three (3), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 3:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_three_button.config(bg="pink")
-
-                # If the button position is four (4), change the button's colour to pink
-                # ... (inspired by the "button_position" segment of the project and/or program)
-                if button_position == 4:
-                    # Changing the button's colour to lime (inspired by "answer_option_one_button")
-                    self.answer_option_four_button.config(bg="pink")
-
-                # Changes answer section to display an incorrect error message (configure section from "12g_Assembled_Program.py")
-                self.answer_label.configure(
-                    text="Incorrect, the correct answer was {}".format(correct_answer_check), fg="red")
+        # If the total questions asked is equal to the total question amount, end the quiz
+        # ... (inspired by usability testing and the "if total_questions_asked < question_amount_check" piece of code)
+        if total_questions_asked == question_amount_check:
 
             # Disables the answer buttons (inspired by "04b_Statistic_Gathering_Loop.py"
             # ... and other portions of this function) [Moved from below in the given piece of code]
@@ -585,17 +531,9 @@ class Quiz:
             # Sets the primary button to a button that ends the quiz
             # ... (inspired by the "next_question_button" that has been set to a button that sends the user to
             # ... view their statistics)
-            # self.next_question_button.configure(text="End Quiz", bg="red",
-                                                # command=lambda: self.statistics_button_change
-                                                # (question_amount, correct_answer_amount))
-
-            # Disables the next question button if the designated number of questions have been asked
-            # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
-            # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
-            # ... (Inspired by above question buttons)
-            self.next_question_button.configure(text="View Statistics", bg="violet",
-                                                command=lambda: self.to_statistics(question_amount,
-                                                                                   correct_answer_amount))
+            self.next_question_button.configure(text="End Quiz", bg="red",
+                                                command=lambda: self.statistics_button_change
+                                                (correct_answer_amount))
 
         # Sets the question number to the total questions asked
         # self.question_number.set(total_questions_asked)
@@ -617,7 +555,7 @@ class Quiz:
         self.answer_option_four_button.config(state=DISABLED)
 
         # Sets question number labels to relevant numbers
-        self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount))
+        self.question_number_label.configure(text="{}/{}".format(total_questions_asked, question_amount_check))
 
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
@@ -632,10 +570,10 @@ class Quiz:
         Start(self)
 
     # Calls statistics window (inspired by "00_Compiled_Version_6.py")
-    def to_statistics(self, question_amount, correct_answer_amount):
+    def to_statistics(self, correct_answer_amount):
 
         # Calls Statistics window (parts originally from above code segment)
-        Statistics(self, question_amount, correct_answer_amount)
+        Statistics(self, correct_answer_amount)
 
         # Destroys quiz window (inspired by the "to_quiz" function)
         self.quiz_box.destroy()
@@ -660,19 +598,32 @@ class Quiz:
         # self.start_buttons_frame.destroy()
 
     # Defining the statistics button change function (inspired by the "to_help_from_quiz" function)
-    def statistics_button_change(self, question_amount, correct_answer_amount):
+    def statistics_button_change(self, correct_answer_amount):
 
         # Sets the user answer feedback section as blank (inspired by the "answer_label" configuration segment in the
         # ... "check_answer" function)
         self.answer_label.configure(text="")
 
+        # Disables the next question button if the designated number of questions have been asked
+        # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
+        # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
+        # ... (Inspired by above question buttons)
+        self.next_question_button.configure(text="View Statistics", bg="violet",
+                                            command=lambda: self.to_statistics(correct_answer_amount))
+
 
 # Statistics Class (setup  of class inspired by above classes)
 class Statistics:
-    def __init__(self, partner, question_amount, correct_answer_amount):
+    def __init__(self, partner, correct_answer_amount):
 
         # Gets question number total
         # question_number_total = question_amount
+
+        # Sets the question amount variable to equal the total question amount variable
+        question_amount = self.total_question_amount.get()
+
+        # Establishes the question amount as an integer
+        question_amount = int(question_amount)
 
         # GUI Setup (from above class)
         self.statistics_box = Toplevel()
