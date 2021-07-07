@@ -193,7 +193,7 @@ class Quiz:
         # Initialise the question number variable
         self.question_number = IntVar()
 
-        # Sets the question number to one (1) at the beginning of the quiz
+        # Sets the question number to zero (0) at the beginning of the quiz
         self.question_number.set(0)
 
         # The total questions asked
@@ -437,10 +437,10 @@ class Quiz:
         # Prints chosen button variable
         # print (chosen_button)
 
-        # Establishes the question amount check variable as the total question amount
-        question_amount_check = self.total_question_amount
+        # Establishes the question amount check as the total question amount variable
+        question_amount_check = self.total_question_amount.get()
 
-        # The question amount check variable becomes an integer
+        # Establishes the question amount check as an integer
         question_amount_check = int(question_amount_check)
 
         # Defines the total_questions_asked variable as the question_number variable
@@ -457,7 +457,7 @@ class Quiz:
 
         # If the total questions asked is not the same as the question amount, allow the user to continue,
         # ... checking to see if their answer is correct (Portions inspired by usability testing)
-        if total_questions_asked < question_amount_check:
+        if total_questions_asked <= question_amount_check:
 
             # If the chosen button variable is equal to the correct answer check variable, tell the user that they are correct.
             if chosen_button == correct_answer_check:
@@ -531,9 +531,7 @@ class Quiz:
             # Sets the primary button to a button that ends the quiz
             # ... (inspired by the "next_question_button" that has been set to a button that sends the user to
             # ... view their statistics)
-            self.next_question_button.configure(text="End Quiz", bg="red",
-                                                command=lambda: self.statistics_button_change
-                                                (correct_answer_amount))
+            self.next_question_button.configure(text="End Quiz", bg="red", command=self.statistics_button_change)
 
         # Sets the question number to the total questions asked
         # self.question_number.set(total_questions_asked)
@@ -570,10 +568,10 @@ class Quiz:
         Start(self)
 
     # Calls statistics window (inspired by "00_Compiled_Version_6.py")
-    def to_statistics(self, correct_answer_amount):
+    def to_statistics(self, question_amount, correct_answer_amount):
 
         # Calls Statistics window (parts originally from above code segment)
-        Statistics(self, correct_answer_amount)
+        Statistics(self, question_amount, correct_answer_amount)
 
         # Destroys quiz window (inspired by the "to_quiz" function)
         self.quiz_box.destroy()
@@ -598,7 +596,19 @@ class Quiz:
         # self.start_buttons_frame.destroy()
 
     # Defining the statistics button change function (inspired by the "to_help_from_quiz" function)
-    def statistics_button_change(self, correct_answer_amount):
+    def statistics_button_change(self):
+
+        # Sets the question amount variable as the total question amount variable
+        question_amount = self.total_question_amount.get()
+
+        # The question amount variable becomes an integer
+        question_amount = int(question_amount)
+
+        # Sets the correct answer amount variable as the correct answer count variable
+        correct_answer_amount = self.correct_answer_count.get()
+
+        # The correct answer amount becomes an integer
+        correct_answer_amount = int(correct_answer_amount)
 
         # Sets the user answer feedback section as blank (inspired by the "answer_label" configuration segment in the
         # ... "check_answer" function)
@@ -609,21 +619,15 @@ class Quiz:
         # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
         # ... (Inspired by above question buttons)
         self.next_question_button.configure(text="View Statistics", bg="violet",
-                                            command=lambda: self.to_statistics(correct_answer_amount))
+                                            command=lambda: self.to_statistics(question_amount, correct_answer_amount))
 
 
 # Statistics Class (setup  of class inspired by above classes)
 class Statistics:
-    def __init__(self, partner, correct_answer_amount):
+    def __init__(self, partner, question_amount, correct_answer_amount):
 
         # Gets question number total
         # question_number_total = question_amount
-
-        # Sets the question amount variable to equal the total question amount variable
-        question_amount = self.total_question_amount.get()
-
-        # Establishes the question amount as an integer
-        question_amount = int(question_amount)
 
         # GUI Setup (from above class)
         self.statistics_box = Toplevel()
