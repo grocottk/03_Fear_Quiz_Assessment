@@ -106,14 +106,14 @@ class Start:
                 error_feedback = "Sorry, the lowest number of questions that you can be asked is 1."
 
             # If the question amount is more than 113, give an error message
-            elif question_amount_check > 113:
-                has_errors = "yes"
-                error_feedback = "Sorry, the highest number of questions that you can be asked is 113."
+            # elif question_amount_check > 113:
+                # has_errors = "yes"
+                # error_feedback = "Sorry, the highest number of questions that you can be asked is 113."
 
         # If a value error is present, tell the user that they have an error
         except ValueError:
             has_errors = "yes"
-            error_feedback = "Please enter a whole number between 1 and 113"
+            error_feedback = "Please enter a whole number above 1"
 
         # If the entry has an error, tell the user
         if has_errors == "yes":
@@ -736,7 +736,7 @@ class Help:
                     "which will hopefully allow you to complete it to the best of your ability." \
                     "\n\n" \
                     "   1. Please begin by entering the number of questions that you would like to be \n" \
-                    "       asked (between 1 and 113) into the provided text box in the start window. After this, \n" \
+                    "       asked (this can be any whole number greater than or equal to 1) into the provided text box in the start window. After this, \n" \
                     "       please check your entry with the 'Check Questions Number', and then once the answer \n" \
                     "       has been checked, you can press the start button." \
                     "\n\n" \
