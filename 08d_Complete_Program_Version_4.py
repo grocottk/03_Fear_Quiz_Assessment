@@ -175,6 +175,7 @@ class Start:
         self.start_buttons_frame.destroy()
 
     # Defining a variable that quits the game from the start class (Inspired by the "to_help_from_start" function)
+    # ... (inspired by "00_Compiled_Version_6.py")
     def to_quit_from_start(self):
 
         # Prints a message that tells the user that this function is at least partially functional (for testing purposes)
@@ -242,8 +243,8 @@ class Quiz:
         # GUI Setup
         self.quiz_box = Toplevel()
 
-        # If users press cross at top, the quiz dismisses to the start window
-        self.quiz_box.protocol('WM_DELETE_WINDOW', self.to_dismiss)
+        # If users press cross at top, the quiz quits
+        self.quiz_box.protocol('WM_DELETE_WINDOW', self.quiz_to_quit)
 
         # Defining the Quiz Frame
         self.quiz_frame = Frame(self.quiz_box, padx=10, pady=10)
@@ -255,7 +256,7 @@ class Quiz:
         self.question_number_label.grid(row=0)
 
         # Question text [Part 1] (Row 1)
-        self.question_text_part_one = Label(self.quiz_frame, text="The word...", font="Arial 15",
+        self.question_text_part_one = Label(self.quiz_frame, text="", font="Arial 15",
                                             padx=10, pady=10, justify=LEFT)
         self.question_text_part_one.grid(row=1)
 
@@ -272,7 +273,7 @@ class Quiz:
         self.fear_name_label.grid(row=2)
 
         # Question text [Part 2] (Row 3)
-        self.question_text_part_two = Label(self.quiz_frame, text="represents a fear of...", font="Arial 15",
+        self.question_text_part_two = Label(self.quiz_frame, text="", font="Arial 15",
                                             padx=10, pady=10, justify=LEFT)
         self.question_text_part_two.grid(row=3)
 
@@ -338,9 +339,9 @@ class Quiz:
         self.quiz_bottom_buttons_frame = Frame(self.quiz_frame)
         self.quiz_bottom_buttons_frame.grid(row=7)
 
-        # Quiz Dismiss Button (Row 0, Column 0) [Function from "05_Game_Playable.py"]
-        self.quiz_dismiss_button = Button(self.quiz_bottom_buttons_frame, text="Dismiss", font="Arial 10", pady=5, padx=10, bg="yellow", command=self.to_dismiss)
-        self.quiz_dismiss_button.grid(row=0, column=0, padx=10)
+        # Quiz Quit Button (Row 0, Column 0) [Function from "05_Game_Playable.py"]
+        self.quiz_quit_button = Button(self.quiz_bottom_buttons_frame, text="Quit", font="Arial 10", pady=5, padx=10, bg="red", command=self.quiz_to_quit)
+        self.quiz_quit_button.grid(row=0, column=0, padx=10)
 
         # Help Button (Row 0, Column 1)
         self.help_button = Button(self.quiz_bottom_buttons_frame, text="Help", font="Arial 10", pady=5, padx=10,
@@ -379,10 +380,16 @@ class Quiz:
         # Changes Begin Quiz button to Next Question button
         self.next_question_button.config(text="Next Question")
 
+        # Question text [Part 1] [(Row 1)] [from and/or inspired by "question_text_part_one"]
+        self.question_text_part_one.configure(text="The word...")
+
+        # Question text [Part 2] [(Row 3)] [from and/or inspired by "question_text_part_two"]
+        self.question_text_part_two.configure(text="represents a fear of...")
+
         # Template for importing .csv files from "Data to Fish" at the following link: https://datatofish.com/import-csv-file-python-using-pandas/.
         # ... Code in the List Testing version has been adapted from the shown link ("https://datatofish.com/import-csv-file-python-using-pandas/")
         # ... during later versions. (Other resources used include: https://datatofish.com/convert-pandas-dataframe-to-list/, and https://datatofish.com/import-csv-file-python-using-pandas/)
-
+        # ... [...]
         # This defines the fear_list variable as the entire provided .csv file
         fear_data = pd.read_csv(
             r'C:\users\grocottk70790\OneDrive - Massey High School\COM301\91906_&_91907_Programming\03_Fear_Quiz_Assessment\fear_list.csv')
@@ -566,14 +573,18 @@ class Quiz:
     # Answer checking function (Function formatting inspired by "12g_Assembled_Program.py") 
     # def check_answer(self, answer_choice):
 
-    # Function to dismiss the quiz
-    def to_dismiss(self):
+    # Function to quit the quiz
+    def quiz_to_quit(self):
 
         # Destroys the quiz box (inspired by "quiz_box")
-        self.quiz_box.destroy()
+        # self.quiz_box.destroy()
 
         # Creates the start window
-        Start(self)
+        # Start(self)
+
+        # Destroys the program's window(s) [Inspired by "root.destroy()" in the "Start" class]
+        # ... (this previously used the line "[...]# partner.root.destroy()")
+        root.destroy()
 
     # Calls statistics window (inspired by "00_Compiled_Version_6.py")
     def to_statistics(self, question_amount, correct_answer_amount):
@@ -625,6 +636,21 @@ class Quiz:
         # ... "check_answer" function)
         self.answer_label.configure(text="")
 
+        # Disables the first piece of question text (inspired by "question_text_part_one") [This has been moved from the "check_answer" function]
+        self.question_text_part_one.configure(text="")
+
+        # Disables the second piece of the quesion's text (inspired by "question_text_part_two" and "question_text_part_one") [[T]his has been moved from the "check_answer" function]
+        self.question_text_part_two.configure(text="")
+
+        # Removes the text from the program's answer (from and/or inspired by "answer_option_one_button", "answer_option_two_button", "answer_option_three_button" and "answer_option_four_button") [This has been moved from the "check_answer" function]
+        self.answer_option_one_button.config(text="", bg="white")
+        self.answer_option_two_button.config(text="", bg="white")
+        self.answer_option_three_button.config(text="", bg="white")
+        self.answer_option_four_button.config(text="", bg="white")
+
+        # Disables the question term/word label (inspired by "question_text_part_one" and "fear_name_label")
+        self.fear_name_label.configure(text="")
+
         # Disables the next question button if the designated number of questions have been asked
         # ... (This button is currently not functional in its intended purpose, and will hopefully be fixed
         # ... in future versions) [Inspiration possibly partially taken from "next_question_button" variable]
@@ -643,6 +669,14 @@ class Statistics:
         # Disables the button that allows the user to view their statistics (inspired by "next_question_button")
         # ... [This has been moved from another portion of this code] (inspired by "00_Compiled_Version_6.py)
         partner.next_question_button.configure(state=DISABLED)
+
+        # Disables the quit button (inspired by "next_question_button" configuration)
+        # ... [Inspired by "quiz_quit_button"]
+        partner.quiz_quit_button.configure(state=DISABLED)
+
+        # Disables the help button (inspired by "next_question_button" configuration)
+        # ... [inspired by "help_button"]
+        partner.help_button.configure(state=DISABLED)
 
         # GUI Setup (from above class)
         self.statistics_box = Toplevel()
@@ -736,6 +770,12 @@ class Statistics:
         # ... from [and/or inspired by] the "close_statistics" function in the "GameStatistics" segment of the file
         # ... named "00_Compiled_Version_6.py"[...]) [Inspired by "next_question_button"]
         partner.next_question_button.configure(state=NORMAL)
+
+        # Configures the "quiz_quit_button" to enable (inspired by "quiz_quit_button" and "next_question_button" configuration)
+        partner.quiz_quit_button.configure(state=NORMAL)
+
+        # Configures the "help_button" to enable when the statistics window is closed (inspired by "help_button", and the "next_question_button" and "quiz_quit_button" configuration[s])
+        partner.help_button.configure(state=NORMAL)
 
     # Defines a to_export function
     def to_export(self, question_amount, correct_answer_amount):
@@ -839,6 +879,9 @@ class Export:
 
         # Disables the statistics export button (inspired by "00_Compiled_Version_6.py")
         partner.statistics_export_button.configure(state=DISABLED)
+
+        # Disables the "statistics_export_button" to avoid unwanted entries (inspired by "statistics_export_button", "statistics_export_button" and "statistics_dismiss_button")
+        partner.statistics_dismiss_button.configure(state=DISABLED)
 
         # Establishes the export box (inspired by "00_Compiled_Version_6.py") [inspired by "00_Compiled_Version_6.py"]
         self.export_box = Toplevel()
