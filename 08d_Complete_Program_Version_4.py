@@ -581,8 +581,11 @@ class Quiz:
         # Calls Statistics window (parts originally from above code segment)
         Statistics(self, question_amount, correct_answer_amount)
 
+        # Disables the button that allows the user to view their statistics (inspired by "next_question_button")
+        # self.next_question_button.configure(state=DISABLED)
+
         # Destroys quiz window (inspired by the "to_quiz" function)
-        self.quiz_box.destroy()
+        # self.quiz_box.destroy()
 
     # Creating a function that opens the help window from the quiz window (inspired by the "to_help_from_start"
     # ... function) (inspired by the "to_quiz" function)
@@ -637,12 +640,17 @@ class Statistics:
         # Gets question number total
         # question_number_total = question_amount
 
+        # Disables the button that allows the user to view their statistics (inspired by "next_question_button")
+        # ... [This has been moved from another portion of this code] (inspired by "00_Compiled_Version_6.py)
+        partner.next_question_button.configure(state=DISABLED)
+
         # GUI Setup (from above class)
         self.statistics_box = Toplevel()
 
         # If users press cross at top, the quiz dismisses to the start window
         # ... (from "quiz_box" in the "Quiz" segment of the code)
-        self.statistics_box.protocol('WM_DELETE_WINDOW', self.statistics_close)
+        # ... [Inspired by "00_Compiled_Version_6.py"]
+        self.statistics_box.protocol('WM_DELETE_WINDOW', partial(self.statistics_close, partner))
 
         # Creating the statistics frame (inspired by the "Quiz" segment) [frame name(s) replaced using replace function]
         self.statistics_frame = Frame(self.statistics_box, padx=10, pady=10)
@@ -699,8 +707,9 @@ class Statistics:
 
         # Dismiss Button (Row 0, Column 0) [Inspired by "statistics_buttons_frame" formatting]
         # ... (padding ispired by the "quit_button") [Inspired by "00_Compiled_Version_6.py"]
+        # ... (Inspired by "00_Compiled_Version_6.py")
         self.statistics_dismiss_button = Button(self.statistics_buttons_frame, text="Dismiss", bg="yellow", pady=5,
-                                                padx=10, command=self.statistics_close)
+                                                padx=10, command=partial(self.statistics_close, partner))
         self.statistics_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export Button (Row 0, Column 1) [Inspired by "statistics_buttons_frame" formatting]
@@ -714,20 +723,19 @@ class Statistics:
     # Establishes a statistics close check function that checks to see if the user is willing to lose their progress.
     # def statistics_close_check(self):
 
-    # Statistics closing function (inspired by "00_Compiled_Version_6.py")
-    def statistics_close(self):
+    # Statistics closing function (inspired by "00_Compiled_Version_6.py") [Inspired by "00_Compiled_Version_6.py"]
+    def statistics_close(self, partner):
 
         # Destroys statistics box
         self.statistics_box.destroy()
 
         # Creates the start window
-        Start(self)
+        # Start(self)
 
-        # The following is from the "close_statistics" function in the "GameStatistics"
-        # ... segment of the file named "00_Compiled_Version_6.py":
-        # Put statistics button back to normal:
-        # partner.statistics_button.config(state=NORMAL)
-        # self.statistics_box.destroy()
+        # Closes the statistics box and allows the statistics viewing button to be pressed (this piece of code is
+        # ... from [and/or inspired by] the "close_statistics" function in the "GameStatistics" segment of the file
+        # ... named "00_Compiled_Version_6.py"[...]) [Inspired by "next_question_button"]
+        partner.next_question_button.configure(state=NORMAL)
 
     # Defines a to_export function
     def to_export(self, question_amount, correct_answer_amount):
@@ -739,10 +747,10 @@ class Statistics:
         Export(self, question_amount, correct_answer_amount)
 
         # Destroys the statistics frame (inspired by mention of the "statistics_frame")
-        self.statistics_frame.destroy()
+        # self.statistics_frame.destroy()
 
         # Destroys the statistics window (inspired by above code mentioning the "statistics_box")
-        self.statistics_box.destroy()
+        # self.statistics_box.destroy()
 
 
 # Help Class (inspired by the "Statistics" class)
@@ -829,12 +837,15 @@ class Export:
         # Prints text that indicates that the window has been correctly mentioned
         # print("functional")
 
+        # Disables the statistics export button (inspired by "00_Compiled_Version_6.py")
+        partner.statistics_export_button.configure(state=DISABLED)
+
         # Establishes the export box (inspired by "00_Compiled_Version_6.py") [inspired by "00_Compiled_Version_6.py"]
         self.export_box = Toplevel()
 
         # If users press cross at top, the quiz dismisses to the start window
         # ... (from "quiz_box" in the "Quiz" segment of the code)
-        self.export_box.protocol('WM_DELETE_WINDOW', self.export_to_start)
+        self.export_box.protocol('WM_DELETE_WINDOW', partial(self.export_to_statistics, partner))
 
         # Sets up the export frame (inspired by "00_Compiled_Version_6.py")
         self.export_frame = Frame(self.export_box, width=500)
@@ -865,35 +876,58 @@ class Export:
         self.export_buttons_frame.grid(row=4)
 
         # Export dismiss button (Row 0, Column 0) [Inspired by the "help_button" from the "Start" class and/or segment]
+        # ... (Inspired by "00_Compiled_Version_6.py")
         self.export_dismiss_button = Button(self.export_buttons_frame, text="Dismiss", font="Arial 10", pady=5, padx=10,
-                                            bg="yellow", command=self.export_to_start)
+                                            bg="yellow", command=partial(self.export_to_statistics, partner))
         self.export_dismiss_button.grid(row=0, column=0, padx=10)
 
         # Export save button (Row 0, Column 1) [Inspired by the "export_dismiss_button"]
         # ... (Inspired by "00_Compiled_Version_6.py")
         # ... [Inspired by the "save_button" portion of "00_Compiled_Version_6.py"]
+        # ... (Inspired by "00_Compiled_Version_6.py")
         self.export_save_button = Button(self.export_buttons_frame, text="Save", font="Arial 10", pady=5, padx=10,
-                                         bg="cyan", command=partial (lambda: self.export_saving(question_amount, correct_answer_amount)))
+                                         bg="cyan", command=partial (lambda: self.export_saving(partner,
+                                                                                                question_amount,
+                                                                                                correct_answer_amount)))
         self.export_save_button.grid(row=0, column=1, padx=10)
 
-    # Defining the function that sends the user to the start window (inspired by the "statistics_close" function)
-    def export_to_start(self):
+    # Defining the function that sends the user to the statistics window (inspired by the "statistics_close" function)
+    # ... [Inspired by "00_Compiled_Version_6.py"]
+    def export_to_statistics(self, partner):
 
         # Destroys the export box
         self.export_box.destroy()
 
+        # Prints text telling the user that this function is partially functional
+        # print("functional")
+
         # Destroys the export frame
-        self.export_frame.destroy()
+        # self.export_frame.destroy()
 
         # Destroys the "export_buttons_frame"
-        self.export_buttons_frame.destroy()
+        # self.export_buttons_frame.destroy()
 
         # Generate the start window
-        Start(self)
+        # Start(self)
+
+        # This enables the export button in the statistics window (inspired by "00_Compiled_Version_6.py")
+        # ... [inspired by "statistics_export_button"]
+        partner.statistics_export_button.configure(state=NORMAL)
+
+    # Defining a function that sends the user to the start window (inspired by "00_Compiled_Version_6.py")
+    # ... [Inspired by "export_to_statistics"]
+    # def export_to_start(self):
+
+        # Calls the start calss (inspired by "export_to_statistics")
+        # Start(self)
+
+        # Destroys the export box (inspired by "export_to_statistics")
+        # self.export_box.destroy()
 
     # Defining an export saving button (Inspired by "00_Compiled_Version_6.py")
     # ... [Inspired by the "save_history" portion of "00_Compiled_Version_6.py"]
-    def export_saving(self, question_amount, correct_answer_amount):
+    # ... (Inspired by "00_Compiled_Version_6.py")
+    def export_saving(self, partner, question_amount, correct_answer_amount):
 
         # Prints the question amount and the correct answer amount for testing purposes
         # print(question_amount)
@@ -996,8 +1030,8 @@ class Export:
             # Closes the file after information has been entered
             f.close()
 
-            # Sends the user to the start window after data has been exported
-            self.export_to_start()
+            # Sends the user to the start window after data has been exported (inspired by "00_Compiled_Version_6.py)
+            self.export_to_statistics(partner)
 
 
 # Main Routine (edited from "02_Start_GUI.py")
