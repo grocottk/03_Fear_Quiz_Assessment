@@ -340,7 +340,8 @@ class Quiz:
         self.quiz_bottom_buttons_frame.grid(row=7)
 
         # Quiz Quit Button (Row 0, Column 0) [Function from "05_Game_Playable.py"]
-        self.quiz_quit_button = Button(self.quiz_bottom_buttons_frame, text="Quit", font="Arial 10", pady=5, padx=10, bg="red", command=self.quiz_to_quit)
+        self.quiz_quit_button = Button(self.quiz_bottom_buttons_frame, text="Quit", font="Arial 10", pady=5, padx=10,
+                                       bg="red", command=self.quiz_to_quit)
         self.quiz_quit_button.grid(row=0, column=0, padx=10)
 
         # Help Button (Row 0, Column 1)
@@ -486,7 +487,8 @@ class Quiz:
                 # Changes answer section to display a correct message and amount correct
                 # ... (configure section from "12g_Assembled_Program.py") [This has been transferred from another
                 # ... segment of this code]
-                self.answer_label.configure(text="Correct, you have entered {} correct answer(s)".format(correct_answer_amount), fg="green")
+                self.answer_label.configure(text="Correct, you have entered {} correct answer(s)"
+                                            .format(correct_answer_amount), fg="green")
 
             # If the chosen button variable is not equal to the correct answer check variable, tell the user that they are incorrect.
             else:
@@ -499,7 +501,8 @@ class Quiz:
                 # Changes answer section to display an incorrect error message
                 # ... (configure section from "12g_Assembled_Program.py") [This has been moved from another segment of
                 # ... this code]
-                self.answer_label.configure(text="Incorrect, the correct answer was {}".format(correct_answer_check), fg="red")
+                self.answer_label.configure(text="Incorrect, the correct answer was {}".format(correct_answer_check),
+                                            fg="red")
 
             # If the button position is one (1), change the button's colour accordingly
             # ... (inspired by the "button_position" segment of the project and/or program)
@@ -804,25 +807,35 @@ class Help:
         help_text = "Welcome to the Fear Quiz, what follows is some basic help for this quiz, \n" \
                     "which will hopefully allow you to complete it to the best of your ability." \
                     "\n\n" \
-                    "   1. Please begin by entering the number of questions that you would like to be \n" \
-                    "       asked (this can be any whole number greater than or equal to 1) into the provided text box in the start window. After this, \n" \
+                    "   1. Please begin by entering the number of questions that you would like to b\n" \
+                    "       asked (this can be any whole number greater than or equal to 1) into the \n" \
+                    "       provided text box in the start window. After this, \n" \
                     "       please check your entry with the 'Check Questions Number', and then once the answer \n" \
-                    "       has been checked, you can press the start button." \
+                    "       has been checked, you can press the start button (you can also press the help button \n" \
+                    "       in the start class to receive help information, and you can press the quit button to \n" \
+                    "       quit the program entirely." \
                     "\n\n" \
-                    "   2. Once you are in in the quiz window itself, you can press the lime 'Begin Quiz' button to \n" \
-                    "       begin the quiz. To answer the question shown, you can press the button that you would like to \n" \
-                    "       use as your answer. Once you have pressed this button, you will be told the result of your \n" \
-                    "       guess (as in, whether it is correct or incorrect), as well as the number of questions that \n" \
-                    "       you have correctly answered up until that point. After this, you can press the 'Next Question' \n" \
-                    "       button to continue to the next question. The question counter at the top of the window will \n" \
-                    "       allow you to have an idea of how far through the quiz you are." \
+                    "   2. Once you are in in the quiz window itself, you can press the lime 'Begin Quiz' button \n" \
+                    "       to begin the quiz. To answer the question shown, you can press the button that \n" \
+                    "       you would like to use as your answer. Once you have pressed this button, you will be \n" \
+                    "       told information that is relevant to your answer. If your answer is correct, you will \n" \
+                    "       be told both that you are correct, and that the answer that you gave was correct. If \n" \
+                    "       your answer is incorrect, however, you will be told both that you are incorrect, and \n" \
+                    "       you will also be told the correct answer to the question that you were asked. \n" \
+                    "       After this, you can press the 'Next Question' button to continue to the next question. \n" \
+                    "       The question counter at the top of the window will allow you to have an idea of how \n" \
+                    "       far through the quiz you are. Once you have reached the final question that you would \n" \
+                    "       like to be asked, you can press the 'End Quiz' button to end the quiz." \
                     "\n\n" \
-                    "   3. After you have completed the quiz, you can dismiss the quiz (and return to the start window) by pressing the 'Dismiss' button. \n" \
-                    "       If you would like to view the statistics of your quiz, you can press the 'View Statistics' \n" \
-                    "       button. While in this window, you can view a number of important statistics from your quiz. \n" \
-                    "       After viewing these statistics, you can either press the 'Dismiss' button to dismiss the window(s) (and return to the start window), \n" \
-                    "       or the 'Export' button to open the export window. Once in the export window, you will be able \n" \
-                    "       to export the data that you have generated throughout the quiz." \
+                    "   3. After you have completed the quiz, you can quit the quiz by pressing the 'Quit' button, \n" \
+                    "       and you can call the help window with the help button. If you would like to view the \n" \
+                    "       statistics of your quiz, you can press the 'View Statistics' button. While in this \n" \
+                    "       window, you can view a number of important statistics from your quiz. After viewing \n" \
+                    "       these statistics, you can either press the 'Dismiss' button to dismiss the window(s) \n" \
+                    "       (and return to the quiz window), or the 'Export' button to open the export window. \n" \
+                    "       Once in the export window, you will be able to export and/or save the data that you \n" \
+                    "       have generated throughout the quiz, or dismiss the export window (where you [the user] \n" \
+                    "       will be returned to the statistics window." \
                     "\n\n" \
                     "Once you dismiss this help window, the start window will open again, in order for you to \n" \
                     "continue and/or begin your quiz. Good luck." \
@@ -849,8 +862,8 @@ class Help:
 
         # Help dismiss button (Row 2) [Inspired by the "Start" segment and some of the above formatting in the
         # ... "help_text_label" as an example]
-        self.help_dismiss_button = Button(self.help_frame, text="Dismiss", font="Arial 10", pady=5, padx=10, bg="yellow",
-                                          command=self.quit_to_start)
+        self.help_dismiss_button = Button(self.help_frame, text="Dismiss", font="Arial 10", pady=5, padx=10,
+                                          bg="yellow", command=self.quit_to_start)
         self.help_dismiss_button.grid(row=2, padx=5, pady=10)
 
     # Defining a function that quits from the help window, back to the start window
@@ -956,6 +969,10 @@ class Export:
         # This enables the export button in the statistics window (inspired by "00_Compiled_Version_6.py")
         # ... [inspired by "statistics_export_button"]
         partner.statistics_export_button.configure(state=NORMAL)
+
+        # Allows the statistics disable button to be pressed when the export button is closed
+        # ... (inspired by "statistics_export_button" and "statistics_dismiss_button")
+        partner.statistics_dismiss_button.configure(state=NORMAL)
 
     # Defining a function that sends the user to the start window (inspired by "00_Compiled_Version_6.py")
     # ... [Inspired by "export_to_statistics"]
